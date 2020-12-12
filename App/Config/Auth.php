@@ -20,7 +20,7 @@ class Auth extends Config
 
     public function user_find_with_id($id)
     {
-        return $this->connect->query("Select * From `users` where `email` = '$id'");
+        return $this->connect->query("Select * From `users` where `id` = '$id'");
     }
 
     public function auth_error_message($message)
@@ -56,15 +56,25 @@ class Auth extends Config
         return isset($_SESSION['auth_user_email']);
 
     }
+
 //    token update with email
     public function token_update_with_email($token, $email)
     {
         return $this->connect->query("Update `users` Set `token` = '$token' Where `email` = '$email' ");
     }
+
 //    password update with email
     public function password_update($password, $email)
     {
         return $this->connect->query("Update `users` Set `password` = '$password' , `token` = '' Where `email` = '$email' ");
+    }
+
+//    logged user
+    public function auth_user($id)
+    {
+
+        $user = $this->user_find_with_id($id);
+        return $user->fetch_assoc();
     }
 
 }

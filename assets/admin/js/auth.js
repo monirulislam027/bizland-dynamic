@@ -185,7 +185,7 @@ $(document).ready(function () {
         if (password.val() != '' && con_password.val() != '' && password.val() != con_password.val()){
             $('#response-message').html("Password didn't match!");
         }
-        
+
         if (password.val() != '' && con_password.val() != '' && password.val() == con_password.val()){
             $('#recover-password-btn').html('Loading...').attr('disabled', true);
             $.ajax({

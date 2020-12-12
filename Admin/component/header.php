@@ -11,6 +11,10 @@ $auth = new Auth();
 
 $auth->is_logged_in() ? false : header('location:login.php');
 
+$id = base64_decode($_SESSION['auth_user_id']);
+
+$auth_user = $auth->auth_user($id);
+
 ?>
 
 <!DOCTYPE html>
@@ -155,19 +159,19 @@ $auth->is_logged_in() ? false : header('location:login.php');
             </li>
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    <img src="<?= $config->baseUrl ?>assets/admin//img/user2-160x160.jpg"
+                    <img src="<?= $config->baseUrl ?>assets/admin/img/user2-160x160.jpg"
                          class="user-image img-circle elevation-2" alt="User Image">
 
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
                     <li class="user-header bg-primary">
-                        <img src="<?= $config->baseUrl ?>assets/admin//img/user2-160x160.jpg"
+                        <img src="<?= $config->baseUrl ?>assets/admin/img/user2-160x160.jpg"
                              class="img-circle elevation-2" alt="User Image">
 
                         <p>
-                            Alexander Pierce - Web Developer
-                            <small>Member since Nov. 2012</small>
+                            <?= $auth_user['name'] ?>- Web Developer
+                            <small>Member since <?= date('M d , Y' , strtotime($auth_user['created_at'] ) ) ?> </small>
                         </p>
                     </li>
                     <!-- Menu Body -->
