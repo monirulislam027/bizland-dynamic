@@ -164,4 +164,60 @@ $(document).ready(function () {
 
     })
 
+    $('#recover-password').on('submit' , function (event) {
+        event.preventDefault();
+
+
+        let password = $('#password');
+        let con_password = $('#con_password');
+
+        if (password.val() == ''){
+            password.addClass('is-invalid');
+        }else {
+            password.removeClass('is-invalid');
+        }
+
+        if (con_password.val() == ''){
+            con_password.addClass('is-invalid');
+        }else {
+            con_password.removeClass('is-invalid');
+        }
+        if (password.val() != '' && con_password.val() != '' && password.val() != con_password.val()){
+            $('#response-message').html("Password didn't match!");
+        }
+        
+        if (password.val() != '' && con_password.val() != '' && password.val() == con_password.val()){
+            $('#recover-password-btn').html('Loading...').attr('disabled', true);
+            $.ajax({
+                url: baseURL + "admin/action/auth_action.php",
+                method: 'post',
+                data: $(this).serialize() + "&action=recover-password",
+                success: function (response) {
+                    $('#response-message').html(response.message);
+                    if (!response.error){
+                        $('#recover-password-btn').html('Wait....').attr('disabled', false);
+                        if (response.rdr){
+                            setTimeout(function () {
+                                window.location = 'login.php'
+                            } , 1000);
+                        }
+                    }else {
+                        $('#recover-password-btn').html('Change password').attr('disabled', false);
+                    }
+
+                },
+                error: function (response) {
+                    console.log('error')
+                }
+
+            });
+
+
+        }
+
+
+    })
+
+
+
 });

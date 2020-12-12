@@ -56,9 +56,15 @@ class Auth extends Config
         return isset($_SESSION['auth_user_email']);
 
     }
-
-    public function token_update_with_email($token , $email){
+//    token update with email
+    public function token_update_with_email($token, $email)
+    {
         return $this->connect->query("Update `users` Set `token` = '$token' Where `email` = '$email' ");
+    }
+//    password update with email
+    public function password_update($password, $email)
+    {
+        return $this->connect->query("Update `users` Set `password` = '$password' , `token` = '' Where `email` = '$email' ");
     }
 
 }

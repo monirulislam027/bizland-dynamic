@@ -184,7 +184,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'forgot-password') {
                     $mail->Subject = 'Reset Your Password';
                     $mail->Body = '`<div style="margin: auto;width: 50%; text-align:center;">
                                     <p>Reset your password</p>
-                                    <a href="' . $auth->baseUrl . 'admin/reset-password.php?email=' . $email . '&token=' . $token . '" style="background:#00c4cc;color: #fff; text-decoration:none;padding: 10px">Click Here</a>
+                                    <a href="' . $auth->baseUrl . 'admin/recover_password.php?email=' . $email . '&token=' . $token . '" style="background:#00c4cc;color: #fff; text-decoration:none;padding: 10px">Click Here</a>
                                 </div>`';
 
                     $mail->send();
@@ -217,5 +217,69 @@ if (isset($_POST['action']) && $_POST['action'] == 'forgot-password') {
     echo json_encode($data);
 
 }
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'recover-password') {
+
+    if (isset($_POST['password']) && $_POST['password'] != '' && isset($_POST['con_password']) && $_POST['con_password'] != '') {
+
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $con_password = $_POST['con_password'];
+//        check if password didn;t matched
+        if ($password === $con_password) {
+
+            $user = $auth->user_find_with_email($email);
+//            give one  more security so that site don't crush in hacker attack
+            if ($user->num_rows > 0) {
+
+                $user = $user->fetch_assoc();
+
+//                hashing the password
+                $password = password_hash($password , PASSWORD_DEFAULT);
+                $password_update = $auth->password_update($password, $email);
+                if ($password) {
+                    $data['rdr'] = true;
+                    $data['rdr_url'] = 'login.php';
+                    $data['message'] = $auth->auth_success_message('password updated successfully!');
+                }else{
+                    $data['error'] = true;
+                    $data['message'] = $auth->auth_error_message("Something went wrong!");
+                }
+
+            } else {
+                $data['error'] = true;
+                $data['message'] = $auth->auth_error_message("User Doesn't exist in out system!");
+            }
+        } else {
+            $data['error'] = true;
+            $data['message'] = $auth->auth_error_message("Password did not match!");
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $con_password = $_POST['con_password'];
+
+        if ($password == '') {
+            $data['message'] = $auth->auth_error_message($auth->error_message('password'));
+        } else if ($con_password == '') {
+            $data['message'] = $auth->auth_error_message($auth->error_message('confirm password'));
+        } else if ($email == '') {
+            $data['message'] = $auth->auth_error_message($auth->error_message('email'));
+        } else {
+            $data['message'] = $auth->auth_error_message('Something Went Wrong!');
+        }
+    }
+
+    echo json_encode($data);
+
+}
+
+
 
 
