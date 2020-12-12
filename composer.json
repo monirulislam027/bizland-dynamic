@@ -1,0 +1,25 @@
+{
+  "name": "vendor_name/bizland",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Md Monir",
+      "email": "mmislam027@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-mysqli": "*",
+    "ext-json": "*",
+    "phpmailer/phpmailer": "^6.2"
+  },
+  "require-dev":{
+
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "App"
+    }
+  }
+}
