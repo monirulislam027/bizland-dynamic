@@ -38,9 +38,19 @@ $auth_user = $auth->auth_user($id);
     <!--    datatable css -->
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+<!--   bootstrap tooggle -->
+    <link rel="stylesheet"href="<?= $config->baseUrl ?>assets/vendor/bootstrap-toggle/bootstrap-toggle.min.css">
+<!--    bootstrap toggle off  -->
+    <link rel="stylesheet"href="<?= $config->baseUrl ?>assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/adminlte.min.css">
+
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="">
+
     <!--    custom css-->
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/custom.css">
 </head>

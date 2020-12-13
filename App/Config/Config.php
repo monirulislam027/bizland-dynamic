@@ -57,7 +57,7 @@ class Config
     }
 
     public function field_error_message($field){
-        return 'Please enter'. $field;
+        return $field.' field is required!';
     }
 
 }

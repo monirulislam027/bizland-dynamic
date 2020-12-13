@@ -1,5 +1,11 @@
 <?php
+
+use App\Admin\Ability;
+
 require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+
+$ability = new Ability();
+$skills = $ability->all_skills();
 
 ?>
 
@@ -24,6 +30,31 @@ require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
                         <th>Action</th>
                         </thead>
                         <tbody>
+
+                        <?php $sr=1;
+                        while($skill = $skills->fetch_assoc()){?>
+
+                            <tr id="remove-row<?=$skill['id']?>">
+                                <td><?= $sr ?></td>
+                                <td><?= $skill['name']?></td>
+                                <td><?= $skill['percentage']?>%</td>
+                                <td><input type="checkbox" class="toggle-button" data-id="<?= $skill['id'] ?>"
+                                           data-action="skill-status"
+                                           data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Active"
+                                           data-off="Inactive" <?= $skill['status'] == 1 ? 'checked' : '' ?> ></td>
+                                <td class="action-bars">
+
+                                    <a href="skill_edit.php?action=edit-skill&data=<?= base64_encode($skill['id']) ?>"
+                                       class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                    <button data-url-id="<?= ($skill['id']) ?>" type="button" data-action="skill-delete"
+                                            class="btn btn-danger btn-sm remove_item"><i class="fa fa-trash-alt"></i></button>
+
+                                </td>
+
+                            </tr>
+
+                        <?php $sr++; } ?>
+
 
                         </tbody>
                     </table>

@@ -1,5 +1,7 @@
 <?php
+session_start();
 
+use App\Admin\Ability;
 use App\Admin\Information;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
@@ -7,6 +9,7 @@ header('content-type:application/json');
 
 $info = new Information();
 
+$ability = new Ability();
 
 $data = ['error' => false, 'rdr' => false];
 
@@ -92,5 +95,70 @@ if (isset($_POST['action']) && $_POST['action'] == 'about_us_update') {
 
     echo json_encode($data);
 
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'skill-add'){
+
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['percentage']) && $_POST['percentage'] != ''){
+
+        $status = isset($_POST['status'])? $_POST['status']: 0;
+
+        $name = $_POST['name'];
+        $percentage = $_POST['percentage'];
+
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $add_skill = $ability->skill_add($name , $percentage , $status , $auth_id);
+        if ($add_skill){
+            $data['message'] = 'Skill Added Successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'skills.php';
+        }
+        else{
+            $data['error'] = true;
+            $data['message'] = 'Something Went Wrong !!';
+        }
+
+
+
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+        $percentage = $_POST['percentage'];
+
+        if ($name == '') {
+            $data['message'] = $info->field_error_message('Name');
+        } else if ($percentage == '') {
+            $data['message'] = $info->field_error_message('Percentage');
+        }else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'skill-status'){
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $ability->skill_status($status , $id);
+    if ($update_status){
+        $data['message'] = 'Status updated successfully!';
+    }
+    else{
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
 
 }
