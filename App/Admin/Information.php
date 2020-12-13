@@ -52,8 +52,31 @@ class Information extends Config
         return $this->information()['hero_link2_url'];
     }
 
-    public function info_update( $name , $value ){
+    public function about_us_subtitle()
+    {
+        return $this->information()['about_us_subtitle'];
+    }
+
+    public function about_us_description_title()
+    {
+        return $this->information()['about_us_description_title'];
+    }
+
+    public function about_us_description()
+    {
+        return $this->information()['about_us_description'];
+    }
+
+    public function about_us_image()
+    {
+        return $this->information()['about_us_image'];
+    }
+
+
+    public function info_update($name, $value)
+    {
         return $this->connect->query("UPDATE `information` SET `value` = '$value' WHERE `name` = '$name'");
     }
+
 
 }

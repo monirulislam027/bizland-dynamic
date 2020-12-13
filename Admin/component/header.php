@@ -30,12 +30,19 @@ $auth_user = $auth->auth_user($id);
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet"  href="<?= $config->baseUrl ?>assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet"  href="<?= $config->baseUrl ?>assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <link rel="stylesheet"
+          href="<?= $config->baseUrl ?>assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet"
+          href="<?= $config->baseUrl ?>assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Theme style -->
+    <!--    datatable css -->
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!--    custom css-->
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/custom.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
@@ -171,7 +178,7 @@ $auth_user = $auth->auth_user($id);
 
                         <p>
                             <?= $auth_user['name'] ?>- Web Developer
-                            <small>Member since <?= date('M d , Y' , strtotime($auth_user['created_at'] ) ) ?> </small>
+                            <small>Member since <?= date('M d , Y', strtotime($auth_user['created_at'])) ?> </small>
                         </p>
                     </li>
                     <!-- Menu Body -->
@@ -235,7 +242,7 @@ $auth_user = $auth->auth_user($id);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="about_us.php" class="nav-link">
                             <i class="nav-icon fas fa-info"></i>
                             <p>
                                 About Us
@@ -243,14 +250,31 @@ $auth_user = $auth->auth_user($id);
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="nav-icon fas fa-award"></i>
 
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-award"></i>
                             <p>
-                                Skill
+                                Ability
+                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+
+                            <li class="nav-item">
+                                <a href="ability/skills.php" class="nav-link">
+                                    <i class="far fa-arrow-alt-circle-right nav-icon"></i>
+                                    <p>Skill</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../layout/top-nav.html" class="nav-link">
+                                    <i class="far fa-arrow-alt-circle-right nav-icon"></i>
+                                    <p>Counter</p>
+                                </a>
+                            </li>
+
+                        </ul>
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
