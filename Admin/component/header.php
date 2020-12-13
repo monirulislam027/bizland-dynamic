@@ -30,8 +30,8 @@ $auth_user = $auth->auth_user($id);
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet"
-          href="<?= $config->baseUrl ?>assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet"  href="<?= $config->baseUrl ?>assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet"  href="<?= $config->baseUrl ?>assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
@@ -219,7 +219,7 @@ $auth_user = $auth->auth_user($id);
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                        <a href="dashboard.php" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -227,7 +227,7 @@ $auth_user = $auth->auth_user($id);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="hero.php" class="nav-link">
                             <i class=" nav-icon fas fa-home"></i>
                             <p>
                                 Hero

@@ -9,7 +9,7 @@ $config = new Config();
 
 $auth = new Auth();
 
-$auth->is_logged_in() ? header('location:login.php'): header('location:dashboard.php')
+$auth->is_logged_in() ? header('location:dashboard.php'): false
 ?>
 
 <!DOCTYPE html>

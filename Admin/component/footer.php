@@ -22,9 +22,14 @@
 <script src="<?= $config->baseUrl ?>assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="<?= $config->baseUrl ?>assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="<?= $config->baseUrl ?>assets/admin/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- AdminLTE App -->
-<script src="<?= $config->baseUrl ?>assets/admin//js/adminlte.min.js"></script>
+<script src="<?= $config->baseUrl ?>assets/admin/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="<?= $config->baseUrl ?>assets/admin//js/demo.js"></script>
+<script src="<?= $config->baseUrl ?>assets/admin/js/demo.js"></script>
+
+<!-- custom javascript -->
+<script src="<?= $config->baseUrl ?>assets/admin/js/script.js"></script>
+
 </body>
 </html>

@@ -43,4 +43,17 @@ class Config
         return "Please enter a " . $field_name;
     }
 
+    public function response_message($type ,$message)
+    {
+        $message_t = '<div class="alert alert-'.$type.' alert-dismissible fade show" role="alert">';
+        $message_t .= $message;
+        $message_t .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+        $message_t .= ' <span aria-hidden="true">&times;</span>';
+        $message_t .= '</button>';
+        $message_t .= ' </div>';
+
+        return $message_t;
+
+    }
+
 }
