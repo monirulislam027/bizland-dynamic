@@ -9,7 +9,7 @@ $config = new Config();
 
 $auth = new Auth();
 
-$auth->is_logged_in() ? false : header('location:login.php');
+//$auth->is_logged_in() ? false : header('location:login.php');
 
 $id = base64_decode($_SESSION['auth_user_id']);
 
@@ -26,33 +26,7 @@ $auth_user = $auth->auth_user($id);
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet"
-          href="<?= $config->baseUrl ?>assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet"
-          href="<?= $config->baseUrl ?>assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-    <!-- Theme style -->
-    <!--    datatable css -->
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <!-- iCheck for checkboxes and radio inputs -->
-<!--   bootstrap tooggle -->
-    <link rel="stylesheet"href="<?= $config->baseUrl ?>assets/vendor/bootstrap-toggle/bootstrap-toggle.min.css">
-<!--    bootstrap toggle off  -->
-    <link rel="stylesheet"href="<?= $config->baseUrl ?>assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/adminlte.min.css">
-
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-    <link rel="stylesheet" href="">
-
-    <!--    custom css-->
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/custom.css">
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/dist/app.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->

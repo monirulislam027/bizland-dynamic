@@ -19,27 +19,9 @@
     <div class="loader4"></div>
 </div>
 <!-- jQuery -->
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-<!-- AdminLTE App -->
-<!-- DataTables -->
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<!--bootstrap toggle-->
-<script src="<?= $config->baseUrl ?>assets/vendor/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-<!-- datatable end -->
-<script src="<?= $config->baseUrl ?>assets/admin/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?= $config->baseUrl ?>assets/admin/js/demo.js"></script>
 
 <!-- custom javascript -->
-<script src="<?= $config->baseUrl ?>assets/admin/js/script.js"></script>
+<script src="<?= $config->baseUrl ?>assets/admin/dist/app.js"></script>
 
 </body>
 </html>
