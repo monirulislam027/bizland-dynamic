@@ -20,8 +20,10 @@
 </div>
 <!-- jQuery -->
 
+
 <!-- custom javascript -->
 <script src="<?= $config->baseUrl ?>assets/admin/dist/app.js"></script>
+<script src="<?= $config->baseUrl ?>assets/admin/resources/js/js.js"></script>
 
 </body>
 </html>

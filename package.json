@@ -5,8 +5,11 @@
   "main": "webpack.config.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
-    "admin-lte": "^3.0.5",
-    "bootstrap": "^3.1.1"
+    "admin-lte": "^3.1.0-rc",
+    "bootstrap": "^3.1.1",
+    "bootstrap-toggle": "^2.2.2",
+    "datatables.net-bs4": "^1.10.22",
+    "jquery": "^3.5.1"
   },
   "devDependencies": {
     "css-loader": "^5.0.1",

@@ -9,7 +9,7 @@ $config = new Config();
 
 $auth = new Auth();
 
-//$auth->is_logged_in() ? false : header('location:login.php');
+$auth->is_logged_in() ? false : header('location:login.php');
 
 $id = base64_decode($_SESSION['auth_user_id']);
 
@@ -26,7 +26,12 @@ $auth_user = $auth->auth_user($id);
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/dist/app.css">
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/resources/css/custom.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
@@ -150,14 +155,14 @@ $auth_user = $auth->auth_user($id);
             </li>
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    <img src="<?= $config->baseUrl ?>assets/admin/img/user2-160x160.jpg"
+                    <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg"
                          class="user-image img-circle elevation-2" alt="User Image">
 
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
                     <li class="user-header bg-primary">
-                        <img src="<?= $config->baseUrl ?>assets/admin/img/user2-160x160.jpg"
+                        <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg"
                              class="img-circle elevation-2" alt="User Image">
 
                         <p>
@@ -191,7 +196,7 @@ $auth_user = $auth->auth_user($id);
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="<?= $config->baseUrl ?>assets/admin/index3.html" class="brand-link">
-            <img src="<?= $config->baseUrl ?>assets/admin//img/AdminLTELogo.png"
+            <img src="<?= $config->baseUrl ?>assets/admin/resources/image/AdminLTELogo.png"
                  alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3"
                  style="opacity: .8">
