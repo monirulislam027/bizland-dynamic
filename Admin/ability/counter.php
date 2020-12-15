@@ -38,7 +38,7 @@ $counters = $ability->all_counter();
                             <tr id="remove-row-<?=$counter['id']?>">
                                 <td><?= $sr ?></td>
                                 <td><?= $counter['name']?></td>
-                                <td><?= $counter['number']?>%</td>
+                                <td><?= $counter['number']?></td>
                                 <td><?= $counter['icon']?></td>
                                 <td><input type="checkbox" class="toggle-button" data-id="<?= $counter['id'] ?>"
                                            data-action="counter-status"
