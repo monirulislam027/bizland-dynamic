@@ -98,6 +98,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'about_us_update') {
 
 }
 
+
+// skill section start
 if (isset($_POST['action']) && $_POST['action'] == 'skill-add') {
 
     if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['percentage']) && $_POST['percentage'] != '') {
@@ -140,7 +142,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'skill-add') {
     echo json_encode($data);
 
 }
-
 
 if (isset($_POST['action']) && $_POST['action'] == 'skill-status') {
     $status = $_POST['status'];
@@ -220,5 +221,140 @@ if (isset($_POST['action']) && $_POST['action'] == 'skill-update') {
 
     echo json_encode($data);
 
+
+}
+
+//skill section end
+
+if (isset($_POST['action']) && $_POST['action'] == 'counter-add') {
+
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['number']) && $_POST['number'] != null && isset($_POST['icon']) && $_POST['icon'] != '' ) {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+
+        $name = $_POST['name'];
+        $number = $_POST['number'];
+        $icon = $_POST['icon'];
+
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $add_counter = $ability->counter_add($name, $number, $icon , $status, $auth_id);
+        if ($add_counter) {
+            $data['message'] = 'Counter Added Successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'counter.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Something Went Wrong !!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+        $number = $_POST['number'];
+        $icon = $_POST['icon'];
+
+        if ($name == '') {
+            $data['message'] = $info->field_error_message('Name');
+        } else if ($number == '') {
+            $data['message'] = $info->field_error_message('Number');
+        } else if ($icon == '') {
+            $data['message'] = $info->field_error_message('Icon');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'counter-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $ability->counter_status($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'counter-update') {
+
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['number']) && $_POST['number'] != null && isset($_POST['icon']) && $_POST['icon'] != '' ) {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+
+        $id = (int)base64_decode($_POST['data']);
+
+        $name = $_POST['name'];
+        $number = $_POST['number'];
+        $icon = $_POST['icon'];
+
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $update_counter = $ability->counter_update($name, $number, $icon , $status, $auth_id , $id);
+        if ($update_counter) {
+            $data['message'] = 'Counter update Successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'counter.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Something Went Wrong !!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+        $number = $_POST['number'];
+        $icon = $_POST['icon'];
+
+        if ($name == '') {
+            $data['message'] = $info->field_error_message('Name');
+        } else if ($number == '') {
+            $data['message'] = $info->field_error_message('Number');
+        } else if ($icon == '') {
+            $data['message'] = $info->field_error_message('Icon');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'counter-delete') {
+
+    $id = $_POST['id'];
+
+    $counter  = $ability->counter_find($id);
+
+    if ($counter) {
+        if ($ability->counter_delete($id)) {
+            $data['message'] = 'Item deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Item delete failed!';
+        }
+    } else {
+        $data['message'] = 'Item not found!';
+    }
+    echo json_encode($data);
 
 }

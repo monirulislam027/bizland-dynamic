@@ -257,7 +257,7 @@ $auth_user = $auth->auth_user($id);
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../layout/top-nav.html" class="nav-link">
+                                <a href="ability/counter.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Counter</p>
                                 </a>
