@@ -23,3 +23,4 @@ import 'admin-lte/dist/js/demo'
 
 import './resources/js/auth'
 import './resources/js/script'
+import './resources/js/js'

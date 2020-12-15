@@ -215,7 +215,7 @@ $auth_user = $auth->auth_user($id);
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview">
-                        <a href="dashboard.php" class="nav-link">
+                        <a href="<?= $auth->adminBaseUrl ?>dashboard.php" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -223,7 +223,7 @@ $auth_user = $auth->auth_user($id);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="hero.php" class="nav-link">
+                        <a href="<?= $auth->adminBaseUrl ?>hero.php" class="nav-link">
                             <i class=" nav-icon fas fa-home"></i>
                             <p>
                                 Hero
@@ -231,7 +231,7 @@ $auth_user = $auth->auth_user($id);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="about_us.php" class="nav-link">
+                        <a href="<?= $auth->adminBaseUrl ?>about_us.php" class="nav-link">
                             <i class="nav-icon fas fa-info"></i>
                             <p>
                                 About Us
@@ -251,13 +251,13 @@ $auth_user = $auth->auth_user($id);
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="ability/skills.php" class="nav-link">
+                                <a href="<?= $auth->adminBaseUrl ?>ability/skills.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Skill</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="ability/counter.php" class="nav-link">
+                                <a href="<?= $auth->adminBaseUrl ?>ability/counter.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Counter</p>
                                 </a>
@@ -276,7 +276,7 @@ $auth_user = $auth->auth_user($id);
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="../layout/top-nav.html" class="nav-link">
+                                <a href="<?= $auth->adminBaseUrl ?>client/client_logo.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Logos</p>
                                 </a>

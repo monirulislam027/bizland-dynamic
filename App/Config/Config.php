@@ -14,6 +14,7 @@ class Config
     public $connect;
 
     public $baseUrl = 'http://bizland-dynamic.test/';
+    public $adminBaseUrl = 'http://bizland-dynamic.test/admin/';
 
     public function __construct()
     {

@@ -113,7 +113,7 @@ $(document).ready(function () {
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location = response.r_url;
+                                window.location = response.rdr_url;
                             }
                         });
                     } else {
@@ -124,6 +124,12 @@ $(document).ready(function () {
                         });
 
                     }
+                }else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: response.message
+                    });
                 }
                 $('#about-us-form-btn').html('Save').attr('disabled', false);
 
@@ -271,16 +277,3 @@ $(document).ready(function () {
 });
 
 
-function imagePreview(file, targetBlock) {
-
-    if (file.files && file.files[0]) {
-
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            $(targetBlock).attr('src', event.target.result)
-        }
-        reader.readAsDataURL(file.files[0]);
-
-    }
-
-}

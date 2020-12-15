@@ -2,6 +2,7 @@
 session_start();
 
 use App\Admin\Ability;
+use App\Admin\Client;
 use App\Admin\Information;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
@@ -10,6 +11,7 @@ header('content-type:application/json');
 $info = new Information();
 
 $ability = new Ability();
+$client = new Client();
 
 $data = ['error' => false, 'rdr' => false];
 
@@ -191,7 +193,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'skill-update') {
 
         $auth_id = base64_decode($_SESSION['auth_user_id']);
 
-        $update_skill = $ability->skill_update($name, $percentage, $status ,  $auth_id , $id);
+        $update_skill = $ability->skill_update($name, $percentage, $status, $auth_id, $id);
         if ($update_skill) {
             $data['message'] = 'Skill updated Successfully!';
             $data['rdr'] = true;
@@ -226,9 +228,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'skill-update') {
 
 //skill section end
 
+// counter add
 if (isset($_POST['action']) && $_POST['action'] == 'counter-add') {
 
-    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['number']) && $_POST['number'] != null && isset($_POST['icon']) && $_POST['icon'] != '' ) {
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['number']) && $_POST['number'] != null && isset($_POST['icon']) && $_POST['icon'] != '') {
 
         $status = isset($_POST['status']) ? $_POST['status'] : 0;
 
@@ -238,7 +241,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'counter-add') {
 
         $auth_id = base64_decode($_SESSION['auth_user_id']);
 
-        $add_counter = $ability->counter_add($name, $number, $icon , $status, $auth_id);
+        $add_counter = $ability->counter_add($name, $number, $icon, $status, $auth_id);
         if ($add_counter) {
             $data['message'] = 'Counter Added Successfully!';
             $data['rdr'] = true;
@@ -292,7 +295,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'counter-status') {
 
 if (isset($_POST['action']) && $_POST['action'] == 'counter-update') {
 
-    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['number']) && $_POST['number'] != null && isset($_POST['icon']) && $_POST['icon'] != '' ) {
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['number']) && $_POST['number'] != null && isset($_POST['icon']) && $_POST['icon'] != '') {
 
         $status = isset($_POST['status']) ? $_POST['status'] : 0;
 
@@ -304,7 +307,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'counter-update') {
 
         $auth_id = base64_decode($_SESSION['auth_user_id']);
 
-        $update_counter = $ability->counter_update($name, $number, $icon , $status, $auth_id , $id);
+        $update_counter = $ability->counter_update($name, $number, $icon, $status, $auth_id, $id);
         if ($update_counter) {
             $data['message'] = 'Counter update Successfully!';
             $data['rdr'] = true;
@@ -343,7 +346,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'counter-delete') {
 
     $id = $_POST['id'];
 
-    $counter  = $ability->counter_find($id);
+    $counter = $ability->counter_find($id);
 
     if ($counter) {
         if ($ability->counter_delete($id)) {
@@ -353,6 +356,100 @@ if (isset($_POST['action']) && $_POST['action'] == 'counter-delete') {
             $data['message'] = 'Item delete failed!';
         }
     } else {
+        $data['message'] = 'Item not found!';
+    }
+    echo json_encode($data);
+
+}
+
+//counter end
+
+if (isset($_POST['action']) && $_POST['action'] == 'logo-add') {
+
+    if ($_FILES['image']['name']) {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+
+        $image = $_FILES['image'];
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+
+        $image = $_FILES['image'];
+        $imageName = explode('.', $image['name']);
+        $imageExe = end($imageName);
+        $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;;
+
+        $logo_add = $client->add_client_log($fileName, $status, $auth_id);
+
+        if ($logo_add) {
+            move_uploaded_file($image['tmp_name'], '../../uploads/logo/' . $fileName);
+            $data['message'] = 'Image Added Successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'client_logo.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Image added failed! Try again!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $image = $_FILES['image']['name'];
+
+        if (empty($image)) {
+            $data['message'] = "Please select a image";
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'logo-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $client->logo_status($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'logo-delete') {
+
+    $id = $_POST['id'];
+
+    $logo = $client->logo_find($id);
+
+    if ($logo->num_rows > 0) {
+
+        $logo_row = $logo->fetch_assoc();
+        if ($client->logo_delete($id)) {
+
+
+            if (file_exists('../../uploads/logo/' . $logo_row['image'])) {
+                unlink('../../uploads/logo/' . $logo_row['image']);
+            }
+
+            $data['message'] = 'Item deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Item delete failed!';
+        }
+    } else {
+        $data['error'] = true;
         $data['message'] = 'Item not found!';
     }
     echo json_encode($data);

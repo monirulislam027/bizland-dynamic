@@ -37,3 +37,17 @@
     from {-webkit-transform: rotate(0deg);}
     to {-webkit-transform: rotate(360deg);}
 }
+
+.image-preview{
+    width: 150px;
+    height: 100px;
+}
+
+.action-bars{
+    width: 135px !important;
+}
+
+.image-preview-client-logo{
+    width: 200px;
+    height: 100px;
+}
