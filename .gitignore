@@ -1,1 +1,6 @@
 node_modules/
+uploads/
+*.jpg
+*.png
+uploads/logo/5fd8d72cb38e0723860.jpg
+uploads/logo/5fd8fce246d27624944.png
