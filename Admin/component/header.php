@@ -75,7 +75,7 @@ $auth_user = $auth->auth_user($id);
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="<?= $config->baseUrl ?>assets/admin//img/user1-128x128.jpg" alt="User Avatar"
+                            <img  src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg" alt="User Avatar"
                                  class="img-size-50 mr-3 img-circle">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
@@ -92,7 +92,7 @@ $auth_user = $auth->auth_user($id);
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="<?= $config->baseUrl ?>assets/admin//img/user8-128x128.jpg" alt="User Avatar"
+                            <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg" alt="User Avatar"
                                  class="img-size-50 img-circle mr-3">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
@@ -109,9 +109,9 @@ $auth_user = $auth->auth_user($id);
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="<?= $config->baseUrl ?>assets/admin//img/user3-128x128.jpg" alt="User Avatar"
+                            <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg" alt="User Avatar"
                                  class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
+                            <div class="media-body">f
                                 <h3 class="dropdown-item-title">
                                     Nora Silvester
                                     <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>

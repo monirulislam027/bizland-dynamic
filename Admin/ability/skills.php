@@ -34,7 +34,7 @@ $skills = $ability->all_skills();
                         <?php $sr=1;
                         while($skill = $skills->fetch_assoc()){?>
 
-                            <tr id="remove-row<?=$skill['id']?>">
+                            <tr id="remove-row-<?=$skill['id']?>">
                                 <td><?= $sr ?></td>
                                 <td><?= $skill['name']?></td>
                                 <td><?= $skill['percentage']?>%</td>
@@ -44,7 +44,7 @@ $skills = $ability->all_skills();
                                            data-off="Inactive" <?= $skill['status'] == 1 ? 'checked' : '' ?> ></td>
                                 <td class="action-bars">
 
-                                    <a href="skill_edit.php?action=edit-skill&data=<?= base64_encode($skill['id']) ?>"
+                                    <a href="edit_skill.php?action=edit-skill&data=<?= base64_encode($skill['id']) ?>"
                                        class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                     <button data-url-id="<?= ($skill['id']) ?>" type="button" data-action="skill-delete"
                                             class="btn btn-danger btn-sm remove_item"><i class="fa fa-trash-alt"></i></button>

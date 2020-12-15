@@ -1,5 +1,8 @@
 import './app.css'
 
+import swal from 'sweetalert2';
+window.Swal = swal;
+
 import 'jquery/dist/jquery'
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle'
 // bootstrap
@@ -9,7 +12,7 @@ import 'bootstrap'
 // import 'admin-lte'
 import 'admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min'
 // sweet alert
-import 'admin-lte/plugins/sweetalert2/sweetalert2.all.min'
+import 'sweetalert2'
 
 import "datatables.net-bs4"
 
@@ -18,5 +21,5 @@ import 'bootstrap-toggle/js/bootstrap-toggle.min'
 import 'admin-lte/dist/js/adminlte'
 import 'admin-lte/dist/js/demo'
 
-import '../admin/resourcess/js/auth'
-import '../admin/resourcess/js/js'
+import './resources/js/auth'
+import './resources/js/script'

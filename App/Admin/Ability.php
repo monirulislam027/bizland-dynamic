@@ -20,10 +20,25 @@ class Ability extends Config
         return $this->connect->query("Insert into `skills` (`name` , `percentage` , `status` , `create_by`) values ('$name' , '$percentage' , '$status' , '$create_by')");
     }
 
-    public function skill_status($status , $id){
-
+    public function skill_status($status, $id)
+    {
         return $this->connect->query("Update `skills` Set `status` = '$status' Where `id` = '$id' ");
-
     }
 
+//    skill find with id
+    public function skill_find($id)
+    {
+        return $this->connect->query("Select * From `skills`  where `id` = '$id'");
+    }
+
+// skill delete
+    public function skill_delete($id)
+    {
+        return $this->connect->query("Delete From `skills` where `id` = '$id'");
+    }
+
+    public function skill_update($name, $percentage, $status, $auth_id, $id)
+    {
+        return $this->connect->query("Update `skills` Set `name` = '$name' ,`percentage` = '$percentage' ,`status` = '$status' ,`create_by` = '$auth_id'  Where `id` = '$id' ");
+    }
 }

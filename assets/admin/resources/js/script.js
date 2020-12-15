@@ -219,6 +219,55 @@ $(document).ready(function () {
         });
     })
 
+
+//    remove slider
+    $('.remove_item').on('click', function () {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                let action = $(this).data('action');
+                let id = $(this).data('url-id');
+                $('.loader').show();
+                $.ajax({
+                    url: baseURL + "admin/action/admin_action.php",
+                    method: 'post',
+                    data: {id: id, action: action},
+                    success: function (response) {
+                        $('.loader').hide();
+                        if (!response.error) {
+                            Swal.fire(
+                                'Deleted!',
+                                response.message,
+                                'success'
+                            )
+                            $('#remove-row-' + id).remove();
+                        } else {
+
+                            Swal.fire(
+                                'Error!',
+                                response.message,
+                                'error'
+                            )
+                        }
+
+                    }
+                });
+            }
+        });
+
+
+    });
+
+
 });
 
 

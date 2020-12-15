@@ -45,14 +45,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'about_us_update') {
 
 
             $image = $_FILES['image'];
-            $imageName = explode('.' , $image['name']);
+            $imageName = explode('.', $image['name']);
             $imageExe = end($imageName);
             $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;;
 
             $imageUpdate = $info->info_update('about_us_image', $fileName);
             if ($imageUpdate) {
-                if (file_exists( '../../uploads/information/'. $old_image)){
-                    unlink('../../uploads/information/'. $old_image);
+                if (file_exists('../../uploads/information/' . $old_image)) {
+                    unlink('../../uploads/information/' . $old_image);
                 }
                 move_uploaded_file($image['tmp_name'], '../../uploads/information/' . $fileName);
             }
@@ -98,30 +98,26 @@ if (isset($_POST['action']) && $_POST['action'] == 'about_us_update') {
 
 }
 
-if (isset($_POST['action']) && $_POST['action'] == 'skill-add'){
+if (isset($_POST['action']) && $_POST['action'] == 'skill-add') {
 
-    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['percentage']) && $_POST['percentage'] != ''){
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['percentage']) && $_POST['percentage'] != '') {
 
-        $status = isset($_POST['status'])? $_POST['status']: 0;
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
 
         $name = $_POST['name'];
         $percentage = $_POST['percentage'];
 
         $auth_id = base64_decode($_SESSION['auth_user_id']);
 
-        $add_skill = $ability->skill_add($name , $percentage , $status , $auth_id);
-        if ($add_skill){
+        $add_skill = $ability->skill_add($name, $percentage, $status, $auth_id);
+        if ($add_skill) {
             $data['message'] = 'Skill Added Successfully!';
             $data['rdr'] = true;
             $data['rdr_url'] = 'skills.php';
-        }
-        else{
+        } else {
             $data['error'] = true;
             $data['message'] = 'Something Went Wrong !!';
         }
-
-
-
 
 
     } else {
@@ -135,7 +131,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'skill-add'){
             $data['message'] = $info->field_error_message('Name');
         } else if ($percentage == '') {
             $data['message'] = $info->field_error_message('Percentage');
-        }else {
+        } else {
             $data['message'] = 'Something went wrong!';
         }
 
@@ -146,19 +142,83 @@ if (isset($_POST['action']) && $_POST['action'] == 'skill-add'){
 }
 
 
-if (isset($_POST['action']) && $_POST['action'] == 'skill-status'){
+if (isset($_POST['action']) && $_POST['action'] == 'skill-status') {
     $status = $_POST['status'];
     $id = $_POST['id'];
 
-    $update_status = $ability->skill_status($status , $id);
-    if ($update_status){
+    $update_status = $ability->skill_status($status, $id);
+    if ($update_status) {
         $data['message'] = 'Status updated successfully!';
-    }
-    else{
+    } else {
         $data['error'] = true;
         $data['message'] = 'Something went wrong! Try again!';
     }
 
     echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'skill-delete') {
+
+    $id = $_POST['id'];
+
+    $skill = $ability->skill_find($id);
+
+    if ($skill) {
+        if ($ability->skill_delete($id)) {
+            $data['message'] = 'Item deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Item delete failed!';
+        }
+    } else {
+        $data['message'] = 'Item not found!';
+    }
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'skill-update') {
+
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['percentage']) && $_POST['percentage'] != '') {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+
+        $id = (int)base64_decode($_POST['data']);
+        $name = $_POST['name'];
+        $percentage = $_POST['percentage'];
+
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $update_skill = $ability->skill_update($name, $percentage, $status ,  $auth_id , $id);
+        if ($update_skill) {
+            $data['message'] = 'Skill updated Successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'skills.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Something Went Wrong !!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+        $percentage = $_POST['percentage'];
+
+        if ($name == '') {
+            $data['message'] = $info->field_error_message('Name');
+        } else if ($percentage == '') {
+            $data['message'] = $info->field_error_message('Percentage');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
 
 }
