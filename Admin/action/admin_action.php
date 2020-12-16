@@ -455,3 +455,183 @@ if (isset($_POST['action']) && $_POST['action'] == 'logo-delete') {
     echo json_encode($data);
 
 }
+
+//testimonial start
+
+if (isset($_POST['action']) && $_POST['action'] == 'testimonial-add') {
+
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['post']) && $_POST['post'] != '' && isset($_POST['review']) && $_POST['review'] != '' && $_FILES['image']['name']) {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+
+        $name = $_POST['name'];
+        $post = $_POST['post'];
+        $review = $_POST['review'];
+
+        $image = $_FILES['image'];
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+
+        $image = $_FILES['image'];
+        $imageName = explode('.', $image['name']);
+        $imageExe = end($imageName);
+        $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;;
+
+        $testimonial_add = $client->testimonial_add($name, $post, $review, $status, $fileName, $auth_id);
+
+        if ($testimonial_add) {
+            move_uploaded_file($image['tmp_name'], '../../uploads/testimonials/' . $fileName);
+            $data['message'] = 'Testimonial added successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'testimonials.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Testimonial added failed! Try again!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $image = $_FILES['image']['name'];
+        $name = $_POST['name'];
+        $post = $_POST['post'];
+        $review = $_POST['review'];
+
+        if ($name == '') {
+            $data['message'] = $client->field_error_message(' name');
+        } else if ($post == '') {
+            $data['message'] = $client->field_error_message(' post');
+        } else if ($review == '') {
+            $data['message'] = $client->field_error_message(' review');
+        } else if (empty($image)) {
+            $data['message'] = "Please select a image";
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'testimonial-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $client->testimonial_status($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'testimonial-delete') {
+
+    $id = $_POST['id'];
+
+    $testimonial = $client->testimonial_find($id);
+
+    if ($testimonial) {
+
+        $testimonial = $testimonial->fetch_assoc();
+
+        if (file_exists('../../uploads/testimonials/' . $testimonial['image'])) {
+            unlink('../../uploads/testimonials/' . $testimonial['image']);
+        }
+
+        if ($client->testimonial_delete($id)) {
+            $data['message'] = 'Item deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Item delete failed!';
+        }
+    } else {
+        $data['message'] = 'Item not found!';
+    }
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'testimonial-update') {
+
+    if (isset($_POST['name']) && isset($_POST['data']) && $_POST['name'] != '' && isset($_POST['post']) && $_POST['post'] != '' && isset($_POST['review']) && $_POST['review'] != '') {
+
+
+        $id = (int)base64_decode($_POST['data']);
+
+        $testimonial = $client->testimonial_find($id);
+        if ($testimonial->num_rows > 0) {
+
+            $testimonial = $testimonial->fetch_assoc();
+
+            $status = isset($_POST['status']) ? $_POST['status'] : 0;
+            $name = $_POST['name'];
+            $post = $_POST['post'];
+            $review = $_POST['review'];
+
+
+            $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+            if ($_FILES['image']['name']) {
+                $image = $_FILES['image'];
+                $imageName = explode('.', $image['name']);
+                $imageExe = end($imageName);
+                $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;
+                if (file_exists('../../uploads/testimonials/' . $testimonial['image'])){
+                    unlink('../../uploads/testimonials/' . $testimonial['image']);
+                }
+                move_uploaded_file($image['tmp_name'], '../../uploads/testimonials/' . $fileName);
+            } else {
+                $fileName = $testimonial['image'];
+            }
+
+
+            $testimonial_update = $client->testimonial_update($name, $post, $review, $status, $fileName, $auth_id , $id);
+
+            if ($testimonial_update) {
+
+                $data['message'] = 'Testimonial updated successfully!';
+                $data['rdr'] = true;
+                $data['rdr_url'] = 'testimonials.php';
+            } else {
+                $data['error'] = true;
+                $data['message'] = 'Testimonial update failed! Try again!';
+            }
+        }else{
+            $data['error'] = true;
+            $data['message'] = 'Item not found!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+        $post = $_POST['post'];
+        $review = $_POST['review'];
+
+        if ($name == '') {
+            $data['message'] = $client->field_error_message(' name');
+        } else if ($post == '') {
+            $data['message'] = $client->field_error_message(' post');
+        } else if ($review == '') {
+            $data['message'] = $client->field_error_message(' review');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}

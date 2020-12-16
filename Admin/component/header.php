@@ -282,7 +282,7 @@ $auth_user = $auth->auth_user($id);
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../layout/top-nav.html" class="nav-link">
+                                <a href="<?= $auth->adminBaseUrl ?>client/testimonials.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Testimonials</p>
                                 </a>

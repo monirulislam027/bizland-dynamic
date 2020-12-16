@@ -39,5 +39,39 @@ class Client extends Config
         return $this->connect->query("Delete From `client_logos` where `id` = '$id'");
     }
 
+    public function testimonial_add($name, $post, $review, $status, $fileName, $auth_id)
+    {
+        return $this->connect->query("Insert Into `testimonials` (`name` , `review` , `post` ,  `status` , `image` , `create_by`) VALUES ('$name' , '$post' , '$review' , '$status' , '$fileName' , '$auth_id')");
 
+    }
+
+
+    public function all_testimonials()
+    {
+        return $this->connect->query("Select * From `testimonials` order by `id` desc");
+    }
+
+//    testimonial status
+    public function testimonial_status($status, $id)
+    {
+        return $this->connect->query("Update `testimonials` Set `status` = '$status' Where `id` = '$id' ");
+    }
+
+    //    logo find with id
+    public function testimonial_find($id)
+    {
+        return $this->connect->query("Select * From `testimonials` where `id` = '$id'");
+    }
+
+    //    logo delete
+    public function testimonial_delete($id)
+    {
+        return $this->connect->query("Delete From `testimonials` where `id` = '$id'");
+    }
+
+    public function testimonial_update($name, $post, $review, $status, $fileName, $auth_id , $id)
+    {
+        return $this->connect->query("Update `testimonials` Set `name` = '$name' , `post` = '$post' , `review` = '$review' ,  `status` = '$status' , `image` = '$fileName' , `create_by` = '$auth_id' where `id` = '$id'");
+
+    }
 }
