@@ -5,6 +5,7 @@ use App\Admin\Ability;
 use App\Admin\Client;
 use App\Admin\Information;
 use App\Admin\Services;
+use App\Admin\Works;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
 header('content-type:application/json');
@@ -14,6 +15,7 @@ $info = new Information();
 $ability = new Ability();
 $client = new Client();
 $services = new Services();
+$works = new  Works();
 
 $data = ['error' => false, 'rdr' => false];
 
@@ -651,7 +653,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'service-add') {
         $desc = $_POST['desc'];
         $auth_id = base64_decode($_SESSION['auth_user_id']);
 
-        $service_add = $services->service_add($icon , $title , $desc ,$status , $featured ,  $auth_id);
+        $service_add = $services->service_add($icon, $title, $desc, $status, $featured, $auth_id);
 
         if ($service_add) {
             $data['message'] = 'Service added successfully!';
@@ -735,7 +737,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'service-update') {
         $desc = $_POST['desc'];
         $auth_id = base64_decode($_SESSION['auth_user_id']);
 
-        $service_update = $services->service_update($icon , $title , $desc ,$status , $featured ,  $auth_id , $id);
+        $service_update = $services->service_update($icon, $title, $desc, $status, $featured, $auth_id, $id);
 
         if ($service_update) {
             $data['message'] = 'Service updated successfully!';
@@ -791,3 +793,124 @@ if (isset($_POST['action']) && $_POST['action'] == 'service-delete') {
     echo json_encode($data);
 
 }
+
+//work menus start
+
+if (isset($_POST['action']) && $_POST['action'] == 'work_menu-add') {
+
+    if (isset($_POST['name']) && $_POST['name'] != '') {
+
+        $name = $_POST['name'];
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $menu_add = $works->add_work_menu($name, $status, $auth_id);
+
+        if ($menu_add) {
+
+            $data['message'] = 'Item added successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'works_menu.php';
+
+        } else {
+
+            $data['error'] = true;
+            $data['message'] = 'Item add failed!';
+        }
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+
+        if ($name == '') {
+            $data['message'] = $client->field_error_message(' Work menu item');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'works-menu-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $works->work_menu_status($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'work-menu-delete') {
+
+    $id = $_POST['id'];
+
+    $work_menu = $works->work_menu_find($id);
+
+    if ($work_menu->num_rows > 0) {
+
+        if ($works->work_menu_delete($id)) {
+            $data['message'] = 'Item deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Item delete failed!';
+        }
+    } else {
+        $data['message'] = 'Item not found!';
+    }
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'work_menu-update') {
+
+    if (isset($_POST['name']) && $_POST['name'] != '' && $_POST['data'] != '') {
+
+        $id = (int) base64_decode($_POST['data']);
+
+        $name = $_POST['name'];
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $menu_update = $works->update_work_menu($name, $status, $auth_id , $id);
+
+        if ($menu_update) {
+
+            $data['message'] = 'Item updated successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'works_menu.php';
+
+        } else {
+
+            $data['error'] = true;
+            $data['message'] = 'Item update failed!';
+        }
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+
+        if ($name == '') {
+            $data['message'] = $client->field_error_message(' Work menu item');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+}
+

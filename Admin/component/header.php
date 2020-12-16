@@ -309,13 +309,13 @@ $auth_user = $auth->auth_user($id);
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="<?=$auth->adminBaseUrl?>work/works_menu.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Menu</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="<?=$auth->adminBaseUrl?>work/works_items.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Items</p>
                                 </a>
