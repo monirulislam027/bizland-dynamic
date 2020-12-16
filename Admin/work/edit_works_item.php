@@ -1,6 +1,21 @@
 <?php require_once 'inc/header.php';
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+use App\Classes\Works;
+$works = new Works();
+
+if (isset($_GET['action']) && $_GET['action'] == 'edit-work-item' && isset($_GET['data'])) {
+
+    $id = (int)base64_decode($_GET['data']);
+
+    $item = $works->work_item_find($id);
+    $item = $item->fetch_assoc();
+    $works_menus = $works->works_menu();
+
+} else {
+    sleep(1);
+    header("location:javascript://history.go(-1)");
+}
+
 
 ?>
 

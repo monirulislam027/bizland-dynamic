@@ -877,13 +877,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'work_menu-update') {
 
     if (isset($_POST['name']) && $_POST['name'] != '' && $_POST['data'] != '') {
 
-        $id = (int) base64_decode($_POST['data']);
+        $id = (int)base64_decode($_POST['data']);
 
         $name = $_POST['name'];
         $status = isset($_POST['status']) ? $_POST['status'] : 0;
         $auth_id = base64_decode($_SESSION['auth_user_id']);
 
-        $menu_update = $works->update_work_menu($name, $status, $auth_id , $id);
+        $menu_update = $works->update_work_menu($name, $status, $auth_id, $id);
 
         if ($menu_update) {
 
@@ -913,4 +913,106 @@ if (isset($_POST['action']) && $_POST['action'] == 'work_menu-update') {
 
     echo json_encode($data);
 }
+
+// work item
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'add-work-item') {
+
+    if (isset($_POST['title']) && $_POST['title'] != '' && isset($_POST['menu_id']) && $_POST['menu_id'] != '' && $_FILES['image']['name']) {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+
+        $title = $_POST['title'];
+        $menu_id = $_POST['menu_id'];
+
+        $image = $_FILES['image'];
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+
+        $image = $_FILES['image'];
+        $imageName = explode('.', $image['name']);
+        $imageExe = end($imageName);
+        $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;;
+
+        $work_item_add = $works->add_work_item($title , $menu_id ,$status , $fileName , $auth_id );
+
+        if ($work_item_add) {
+            move_uploaded_file($image['tmp_name'], '../../uploads/works/' . $fileName);
+            $data['message'] = 'Works item added successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'works_items.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Works item added failed! Try again!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $image = $_FILES['image']['name'];
+        $title = $_POST['title'];
+        $menu_id = $_POST['menu_id'];
+
+
+        if ($title == '') {
+            $data['message'] = $client->field_error_message(' title');
+        } else if ($menu_id == '') {
+            $data['message'] = $client->field_error_message(' Category');
+        } else if (empty($image)) {
+            $data['message'] = "Please select a image";
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'work-item-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $works->work_item_status($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'work-item-delete') {
+
+    $id = (int)$_POST['id'];
+
+    $work_item = $works->work_item_find($id);
+
+    if ($work_item->num_rows > 0) {
+
+        $item = $work_item->fetch_assoc();
+
+        if ($works->work_item_delete($id)) {
+            file_exists('../../uploads/works/' . $item['image']) ? unlink('../../uploads/works/' . $item['image']): false;
+            $data['message'] = 'Item deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Item delete failed!';
+        }
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Item not found!';
+    }
+    echo json_encode($data);
+
+}
+
 

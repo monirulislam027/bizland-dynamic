@@ -1,70 +1,80 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+
+use App\Admin\Works;
+
+$works = new Works();
+
+$items = $works->all_works_item();
+
 ?>
 
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row justify-content-between">
 
-<div class="row justify-content-between">
+                    <div><h3>Manage Works Item</h3></div>
+                    <div>
+                        <a href="add_works_item.php" class="btn btn-primary ">Add New</a>
+                    </div>
 
-    <div><h3>Manage Works Items</h3></div>
-    <div>
-        <a href="works_item_add.php" class="btn btn-primary ">Add New Work</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable">
+
+                            <thead>
+                            <tr>
+                                <th>NO.</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $sr = 1;
+                            while ($item = $items->fetch_assoc()) {
+                                ?>
+                                <tr id="remove-row-<?= $item['id'] ?>">
+                                    <td><?= $sr ?></td>
+                                    <td><?= $item['title'] ?></td>
+                                    <td><?= $item['name'] ?></td>
+                                    <td><img class="image-preview" src="<?= $works->baseUrl?>uploads/works/<?= $item['image'] ?>"  alt="<?= $item['title']?>"></td>
+                                    <td><input type="checkbox" class="toggle-button" data-id="<?= $item['id'] ?>"
+                                               data-action="work-item-status"
+                                               data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Active"
+                                               data-off="Inactive" <?= $item['status'] == 1 ? 'checked' : '' ?> ></td>
+                                    <td class="action-bars">
+
+
+                                        <a href="edit_skill.php?action=edit-skill&data=<?= base64_encode($item['id']) ?>"
+                                           class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        <button data-url-id="<?= $item['id'] ?>" type="button" data-action="work-item-delete"
+                                                class="btn btn-danger btn-sm remove_item"><i class="fa fa-trash-alt"></i></button>
+
+                                    </td>
+                                </tr>
+
+                                <?php $sr++;
+                            } ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
 
-<hr>
-
-<div class="table-responsive">
-    <table class="table table-bordered" id="datatable">
-
-        <thead>
-        <tr>
-            <th>NO.</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Image</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-
-        <tbody>
-
-
-        <?php
-        $sr = 1;
-        while ($row1 = $works_item->fetch_assoc()) {
-
-            ?>
-            <tr id="remove-row-<?= ($row1['id']) ?>">
-                <td><?= $sr ?></td>
-                <td><?= $row1['title'] ?></td>
-                <td><?= $row1['name'] ?></td>
-                <td><img class=" image-preview" src="<?= $works->base_url . 'uploads/works/' . $row1['image'] ?>"
-                         alt="<?= $row1['title'] ?>"></td>
-
-                <td><input type="checkbox" class="toggle-button" data-id="<?= $row1['id'] ?>"
-                           data-action="works-item-status-change"
-                           data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                           data-off="Inactive" <?= $row1['status'] == 1 ? 'checked' : '' ?> ></td>
-                <td class="action-bars">
-
-                    <a href="works_item_edit.php?action=edit-work-item&data=<?= base64_encode($row1['id']) ?>"
-                       class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                    <button data-url-id="<?= ($row1['id']) ?>" type="button" data-action="works-item-remove"
-                            class="btn btn-danger btn-sm remove_item"><i class="fa fa-trash-alt"></i></button>
-
-                </td>
-            </tr>
-            <?php
-            $sr++;
-        }
-        ?>
-
-        </tbody>
-    </table>
-</div>
-
-
-<?php require_once 'inc/footer.php' ?>
-
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+?>

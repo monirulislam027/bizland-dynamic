@@ -44,7 +44,7 @@
 
 
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary">Add Slider</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
                     </div>
                 </form>
             </div>

@@ -21,7 +21,7 @@ class Config
 
         $this->connect = new mysqli($this->host, $this->username , $this->password , $this->database);
         if ($this->connect->connect_error){
-            die($this->conn->connect_error);
+            die($this->connect->connect_error);
         }
     }
 
@@ -58,7 +58,7 @@ class Config
     }
 
     public function field_error_message($field){
-        return $field.' field is required!';
+        return ucfirst($field.' field is required!');
     }
 
 }
