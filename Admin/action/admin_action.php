@@ -4,6 +4,7 @@ session_start();
 use App\Admin\Ability;
 use App\Admin\Client;
 use App\Admin\Information;
+use App\Admin\Services;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
 header('content-type:application/json');
@@ -12,6 +13,7 @@ $info = new Information();
 
 $ability = new Ability();
 $client = new Client();
+$services = new Services();
 
 $data = ['error' => false, 'rdr' => false];
 
@@ -586,7 +588,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'testimonial-update') {
                 $imageName = explode('.', $image['name']);
                 $imageExe = end($imageName);
                 $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;
-                if (file_exists('../../uploads/testimonials/' . $testimonial['image'])){
+                if (file_exists('../../uploads/testimonials/' . $testimonial['image'])) {
                     unlink('../../uploads/testimonials/' . $testimonial['image']);
                 }
                 move_uploaded_file($image['tmp_name'], '../../uploads/testimonials/' . $fileName);
@@ -595,7 +597,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'testimonial-update') {
             }
 
 
-            $testimonial_update = $client->testimonial_update($name, $post, $review, $status, $fileName, $auth_id , $id);
+            $testimonial_update = $client->testimonial_update($name, $post, $review, $status, $fileName, $auth_id, $id);
 
             if ($testimonial_update) {
 
@@ -606,7 +608,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'testimonial-update') {
                 $data['error'] = true;
                 $data['message'] = 'Testimonial update failed! Try again!';
             }
-        }else{
+        } else {
             $data['error'] = true;
             $data['message'] = 'Item not found!';
         }
@@ -632,6 +634,160 @@ if (isset($_POST['action']) && $_POST['action'] == 'testimonial-update') {
 
     }
 
+    echo json_encode($data);
+
+}
+
+//services add
+if (isset($_POST['action']) && $_POST['action'] == 'service-add') {
+
+    if (isset($_POST['icon']) && $_POST['icon'] != '' && isset($_POST['title']) && $_POST['title'] != '' && isset($_POST['desc']) && $_POST['desc'] != '') {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+        $featured = isset($_POST['featured']) ? $_POST['featured'] : 0;
+
+        $icon = $_POST['icon'];
+        $title = $_POST['title'];
+        $desc = $_POST['desc'];
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $service_add = $services->service_add($icon , $title , $desc ,$status , $featured ,  $auth_id);
+
+        if ($service_add) {
+            $data['message'] = 'Service added successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'services.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Service added failed! Try again!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $icon = $_POST['icon'];
+        $title = $_POST['title'];
+        $desc = $_POST['desc'];
+
+        if ($icon == '') {
+            $data['message'] = $client->field_error_message(' icon');
+        } else if ($title == '') {
+            $data['message'] = $client->field_error_message(' title');
+        } else if ($desc == '') {
+            $data['message'] = $client->field_error_message(' desc');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'service-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $services->service_status($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'service-featured-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $services->service_featured_status($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'service-update') {
+
+    if (isset($_POST['icon']) && $_POST['icon'] != '' && isset($_POST['title']) && $_POST['title'] != '' && isset($_POST['desc']) && $_POST['desc'] != '') {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+        $featured = isset($_POST['featured']) ? $_POST['featured'] : 0;
+
+        $id = (int)base64_decode($_POST['data']);
+
+        $icon = $_POST['icon'];
+        $title = $_POST['title'];
+        $desc = $_POST['desc'];
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $service_update = $services->service_update($icon , $title , $desc ,$status , $featured ,  $auth_id , $id);
+
+        if ($service_update) {
+            $data['message'] = 'Service updated successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'services.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Service update failed! Try again!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $icon = $_POST['icon'];
+        $title = $_POST['title'];
+        $desc = $_POST['desc'];
+
+        if ($icon == '') {
+            $data['message'] = $client->field_error_message(' icon');
+        } else if ($title == '') {
+            $data['message'] = $client->field_error_message(' title');
+        } else if ($desc == '') {
+            $data['message'] = $client->field_error_message(' desc');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'service-delete') {
+
+    $id = $_POST['id'];
+
+    $service = $services->service_find($id);
+
+    if ($service->num_rows > 0) {
+
+        if ($services->service_delete($id)) {
+            $data['message'] = 'Item deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Item delete failed!';
+        }
+    } else {
+        $data['message'] = 'Item not found!';
+    }
     echo json_encode($data);
 
 }

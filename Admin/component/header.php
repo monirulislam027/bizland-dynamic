@@ -291,7 +291,7 @@ $auth_user = $auth->auth_user($id);
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="<?= $auth->adminBaseUrl ?>services/services.php" class="nav-link">
                             <i class="nav-icon fas fa-equals"></i>
                             <p>
                                 Services

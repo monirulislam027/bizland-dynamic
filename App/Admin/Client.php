@@ -69,9 +69,13 @@ class Client extends Config
         return $this->connect->query("Delete From `testimonials` where `id` = '$id'");
     }
 
-    public function testimonial_update($name, $post, $review, $status, $fileName, $auth_id , $id)
+    public function testimonial_update($name, $post, $review, $status, $fileName, $auth_id, $id)
     {
         return $this->connect->query("Update `testimonials` Set `name` = '$name' , `post` = '$post' , `review` = '$review' ,  `status` = '$status' , `image` = '$fileName' , `create_by` = '$auth_id' where `id` = '$id'");
-
     }
+
+
+
+
+
 }
