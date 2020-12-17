@@ -68,4 +68,9 @@ class Works extends Config
         return $this->connect->query("Delete From `works_item` where `id` = '$id'");
     }
 
+    public function work_item_update($title , $menu_id , $status , $fileName , $auth_id , $id )
+    {
+        return $this->connect->query("Update `works_item` Set `title` = '$title' , `menu_id` = '$menu_id' , `status` = '$status' , `image` = '$fileName' , `create_by` = '$auth_id' where `id` = '$id'");
+    }
+
 }

@@ -80,9 +80,8 @@ $works_menus = $works->all_work_menu();
                                 </div>
 
                             </div>
-
-
                         </div>
+
                         <div class="form-group text-right">
                             <button type="submit" class="btn btn-primary">Add</button>
                         </div>

@@ -1,6 +1,8 @@
-<?php require_once 'inc/header.php';
+<?php
 
-use App\Classes\Works;
+require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+
+use App\Admin\Works;
 $works = new Works();
 
 if (isset($_GET['action']) && $_GET['action'] == 'edit-work-item' && isset($_GET['data'])) {
@@ -8,8 +10,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-work-item' && isset($_GET
     $id = (int)base64_decode($_GET['data']);
 
     $item = $works->work_item_find($id);
+    if (!$item->num_rows > 0){
+        sleep(1);
+        header("location:javascript://history.go(-1)");
+    }
     $item = $item->fetch_assoc();
-    $works_menus = $works->works_menu();
+    $works_menus = $works->all_work_menu();
 
 } else {
     sleep(1);
@@ -19,23 +25,25 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-work-item' && isset($_GET
 
 ?>
 
-<div class="row justify-content-between">
 
-    <div><h3>Edit Work Item</h3></div>
-    <div>
-        <a href="works-items.php" class="btn btn-primary ">Manage Work Items</a>
-    </div>
-
-</div>
-<hr>
 
 <div class="row justify-content-center">
     <div class="col-md-8 ">
         <div class="card">
-            <div class="card-body">
-                <form id="image-form" data-url='edit-work-item' enctype="multipart/form-data">
+            <div class="card-header">
+                <div class="row justify-content-between">
 
-                    <input type="hidden" value="<?= $_GET['data'] ?>" name="data_id">
+                    <div><h3>Edit Work Item</h3></div>
+                    <div>
+                        <a href="works_items.php" class="btn btn-primary ">Manage Work Items</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <form id="image-form" data-action-url='work-item-update' enctype="multipart/form-data">
+
+                    <input type="hidden" value="<?= $_GET['data'] ?>" name="data">
 
                     <div class="form-group row">
                         <label for="title" class="col-sm-2 col-form-label">Title</label>
@@ -53,9 +61,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-work-item' && isset($_GET
                                 <option value="">Select</option>
 
                                 <?php
-                                while ($row3 = $works_menus->fetch_assoc()) { ?>
+                                while ($menu = $works_menus->fetch_assoc()) { ?>
 
-                                    <option value="<?= $row3['id'] ?>" <?= $row3['id'] == $item['menu_id'] ? 'Selected':''   ?>><?= $row3['name'] ?></option>
+                                    <option value="<?= $menu['id'] ?>" <?= $menu['id'] == $item['menu_id'] ? 'Selected':''   ?>><?= $menu['name'] ?></option>
 
                                 <?php  } ?>
 
@@ -71,29 +79,31 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-work-item' && isset($_GET
                                        onchange="imagePreview(this , '.image-preview')" name="image" id="image">
                             </div>
 
-                            <img src="<?= $works->base_url.'uploads/works/'. $item['image'] ?>"" alt="image" class="image-preview" />
+                            <img src="<?= $works->baseUrl.'uploads/works/'. $item['image'] ?>"" alt="image" class="image-preview" />
                         </div>
                     </div>
+
 
                     <div class="form-group row">
                         <label for="image" class="col-sm-2 col-form-label">Status</label>
                         <div class="col-sm-10 mt-2">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" <?= $item['status'] == 1? 'checked':'' ?> name="status" id="active"
-                                       value="1">
-                                <label class="form-check-label" for="active">Active</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" <?= $item['status'] == 0 ? 'checked':'' ?> name="status" id="inactive" value="0">
-                                <label class="form-check-label" for="inactive">Inactive</label>
+
+                            <div class="form-group clearfix">
+                                <div class="icheck-primary d-inline">
+                                    <input type="radio" value="1" id="active" name="status" <?= $item['status'] == 1 ? 'checked':'' ?>>
+                                    <label for="active"> Active</label>
+                                </div>
+                                <div class="icheck-primary d-inline">
+                                    <input type="radio" id="inactive" value="0" name="status" <?= $item['status'] == 0 ? 'checked':'' ?>>
+                                    <label for="inactive"> Inactive </label>
+                                </div>
                             </div>
 
                         </div>
-
-
                     </div>
+
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary">Update Slider</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>
@@ -104,5 +114,5 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-work-item' && isset($_GET
 </div>
 
 
-<?php require_once 'inc/footer.php' ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php'; ?>
 

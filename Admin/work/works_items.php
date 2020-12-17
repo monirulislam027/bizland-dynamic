@@ -54,7 +54,7 @@ $items = $works->all_works_item();
                                     <td class="action-bars">
 
 
-                                        <a href="edit_skill.php?action=edit-skill&data=<?= base64_encode($item['id']) ?>"
+                                        <a href="edit_works_item.php?action=edit-work-item&data=<?= base64_encode($item['id']) ?>"
                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                         <button data-url-id="<?= $item['id'] ?>" type="button" data-action="work-item-delete"
                                                 class="btn btn-danger btn-sm remove_item"><i class="fa fa-trash-alt"></i></button>
