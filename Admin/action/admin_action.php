@@ -5,6 +5,7 @@ use App\Admin\Ability;
 use App\Admin\Client;
 use App\Admin\Information;
 use App\Admin\Services;
+use App\Admin\Team;
 use App\Admin\Works;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
@@ -16,6 +17,7 @@ $ability = new Ability();
 $client = new Client();
 $services = new Services();
 $works = new  Works();
+$team = new Team();
 
 $data = ['error' => false, 'rdr' => false];
 
@@ -916,7 +918,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'work_menu-update') {
 
 // work item
 
-
 if (isset($_POST['action']) && $_POST['action'] == 'add-work-item') {
 
     if (isset($_POST['title']) && $_POST['title'] != '' && isset($_POST['menu_id']) && $_POST['menu_id'] != '' && $_FILES['image']['name']) {
@@ -1021,7 +1022,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'work-item-update') {
     if (isset($_POST['title']) && $_POST['title'] != '' && isset($_POST['menu_id']) && $_POST['menu_id'] != '') {
 
 
-
         $id = (int)base64_decode($_POST['data']);
 
         $item = $works->work_item_find($id);
@@ -1040,13 +1040,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'work-item-update') {
                 $imageName = explode('.', $image['name']);
                 $imageExe = end($imageName);
                 $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;
-                file_exists('../../uploads/works/' . $item['image']) ? unlink('../../uploads/works/' . $item['image']):false;
+                file_exists('../../uploads/works/' . $item['image']) ? unlink('../../uploads/works/' . $item['image']) : false;
                 move_uploaded_file($image['tmp_name'], '../../uploads/works/' . $fileName);
             } else {
                 $fileName = $item['image'];
             }
 
-            $work_item_update = $works->work_item_update($title, $menu_id, $status, $fileName, $auth_id , $id);
+            $work_item_update = $works->work_item_update($title, $menu_id, $status, $fileName, $auth_id, $id);
 
             if ($work_item_update) {
 
@@ -1057,7 +1057,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'work-item-update') {
                 $data['error'] = true;
                 $data['message'] = 'Works item update failed! Try again!';
             }
-        }else{
+        } else {
             $data['error'] = true;
             $data['message'] = "Item not found!";
         }
@@ -1086,4 +1086,179 @@ if (isset($_POST['action']) && $_POST['action'] == 'work-item-update') {
 
 }
 
+// work item
+
+if (isset($_POST['action']) && $_POST['action'] == 'team-member-add') {
+
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['role']) && $_POST['role'] != '' &&
+        $_FILES['image']['name'] != '') {
+
+        $name = $_POST['name'];
+        $role = $_POST['role'];
+        $facebook = $_POST['facebook'];
+        $twitter = $_POST['twitter'];
+        $linkedIn = $_POST['linkedIn'];
+        $instagram = $_POST['instagram'];
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $image = $_FILES['image'];
+        $imageName = explode('.', $image['name']);
+        $imageExe = end($imageName);
+        $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;
+
+        $team_member_add = $team->create($name, $role, $status, $facebook, $twitter, $linkedIn, $instagram, $fileName, $auth_id);
+
+        if ($team_member_add) {
+            move_uploaded_file($image['tmp_name'], '../../uploads/team/' . $fileName);
+            $data['message'] = 'Team member added successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'team_member.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Team member added failed! Try again!';
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+        $role = $_POST['role'];
+        $image = $_FILES['image'];
+
+        if ($name == '') {
+            $data['message'] = $client->field_error_message('name');
+        } else if ($role == '') {
+            $data['message'] = $client->field_error_message('role');
+        } else if ($image['name'] == '') {
+            $data['message'] = "Please select a image";
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'team-member-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $team->status_update($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'team-member-delete') {
+
+    $id = (int)$_POST['id'];
+
+    $member = $team->find($id);
+
+    if ($member->num_rows > 0) {
+
+        $member = $member->fetch_assoc();
+
+        if ($team->delete($id)) {
+            file_exists('../../uploads/team/' . $member['image']) ? unlink('../../uploads/team/' . $member['image']) : false;
+            $data['message'] = 'Team member deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Team member delete failed!';
+        }
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Team member not found!';
+    }
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'team-member-update') {
+
+    if (isset($_POST['name']) && $_POST['name'] != '' && isset($_POST['role']) && $_POST['role'] != '' &&
+        isset($_POST['data']) && $_POST['data'] != '') {
+
+        $name = $_POST['name'];
+        $role = $_POST['role'];
+        $facebook = $_POST['facebook'];
+        $twitter = $_POST['twitter'];
+        $linkedIn = $_POST['linkedIn'];
+        $instagram = $_POST['instagram'];
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+        $id = (int)base64_decode($_POST['data']);
+        $member = $team->find($id);
+        if ($member->num_rows > 0) {
+
+            $member = $member->fetch_assoc();
+
+            if ($_FILES['image']['name'] != '') {
+
+                $image = $_FILES['image'];
+                $imageName = explode('.', $image['name']);
+                $imageExe = end($imageName);
+                $fileName = uniqid() . rand(111111, 999999) . '.' . $imageExe;
+                file_exists('../../uploads/team/' . $member['image']) ? unlink('../../uploads/team/' . $member['image']) : false;
+                move_uploaded_file($image['tmp_name'], '../../uploads/team/' . $fileName);
+
+            } else {
+                $fileName = $member['image'];
+            }
+
+
+            $team_member_update = $team->update($name, $role, $status, $facebook, $twitter, $linkedIn, $instagram, $fileName, $auth_id, $id);
+
+            if ($team_member_update) {
+
+                $data['message'] = 'Team member updated successfully!';
+                $data['rdr'] = true;
+                $data['rdr_url'] = 'team_member.php';
+            } else {
+                $data['error'] = true;
+                $data['message'] = 'Failed! Try again!';
+            }
+        } else {
+
+            $data['error'] = true;
+            $data['message'] = 'Data not found!';
+
+        }
+
+
+    } else {
+
+        $data['error'] = true;
+
+        $name = $_POST['name'];
+        $role = $_POST['role'];
+        $image = $_FILES['image'];
+
+        if ($name == '') {
+            $data['message'] = $client->field_error_message('name');
+        } else if ($role == '') {
+            $data['message'] = $client->field_error_message('role');
+        } else if ($image['name'] == '') {
+            $data['message'] = "Please select a image";
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+
+}
 

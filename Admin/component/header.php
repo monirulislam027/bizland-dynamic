@@ -324,7 +324,7 @@ $auth_user = $auth->auth_user($id);
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="<?= $auth->adminBaseUrl?>team/team.php" class="nav-link">
                             <i class="nav-icon fab fa-teamspeak"></i>
                             <p>
                                 Team
