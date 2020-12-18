@@ -32,8 +32,8 @@ $information = new Information();
                             <input type="text" class="form-control" id="title"name="hero_title" value="<?= $information->hero_title()['value'] ?>" placeholder="Hero Title">
                         </div>
                         <div class="form-group">
-                            <label for="title">Hero Title</label>
-                            <textarea name="hero_sub_title" id="sub_title" class="form-control" cols="30"  rows="3"><?= $information->hero_sub_title()['value'] ?></textarea>
+                            <label for="title">Hero Sub Title</label>
+                            <textarea name="hero_sub_title" id="sub_title" class="form-control summernote" cols="30"  rows="3"><?= $information->hero_sub_title()['value'] ?></textarea>
                         </div>
 
                         <div class="card">
