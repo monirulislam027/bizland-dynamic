@@ -17,7 +17,7 @@ class Information extends Config
         $information = [];
 
         while ($info = $infos->fetch_assoc()) {
-            $information[$info['name']] =  $info['value'];
+            $information[$info['name']] = $info['value'];
         }
 
         return $information;
@@ -71,6 +71,46 @@ class Information extends Config
     public function about_us_image()
     {
         return $this->information()['about_us_image'];
+    }
+
+    public function contact_address()
+    {
+        return $this->information()['contact_address'];
+    }
+
+    public function contact_email()
+    {
+        return $this->information()['contact_email'];
+    }
+
+    public function contact_no()
+    {
+        return $this->information()['contact_no'];
+    }
+
+    public function facebook()
+    {
+        return $this->information()['facebook'];
+    }
+
+    public function twitter()
+    {
+        return $this->information()['twitter'];
+    }
+
+    public function instagram()
+    {
+        return $this->information()['instagram'];
+    }
+
+    public function linkedIn()
+    {
+        return $this->information()['linkedIn'];
+    }
+
+    public function skype()
+    {
+        return $this->information()['skype'];
     }
 
 }

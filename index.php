@@ -54,15 +54,15 @@ $site = new Site();
 <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
     <div class="container d-flex">
         <div class="contact-info mr-auto">
-            <i class="icofont-envelope"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-            <i class="icofont-phone"></i> +1 5589 55488 55
+            <i class="icofont-envelope"></i> <a href="mailto:<?= $infos->contact_email()?>"><?= $infos->contact_email()?></a>
+            <i class="icofont-phone"></i> <?= $infos->contact_no()?>
         </div>
         <div class="social-links">
-            <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
-            <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-            <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
-            <a href="#" class="skype"><i class="icofont-skype"></i></a>
-            <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
+           <?= $infos->facebook() ? '<a href="'.$infos->facebook().'" class="twitter"><i class="icofont-facebook"></i></a>':'' ?>
+           <?= $infos->twitter() ? '<a href="'.$infos->twitter().'" class="twitter"><i class="icofont-twitter"></i></a>':'' ?>
+           <?= $infos->instagram() ? '<a href="'.$infos->instagram().'" class="twitter"><i class="icofont-instagram"></i></a>':'' ?>
+           <?= $infos->linkedIn() ? '<a href="'.$infos->linkedIn().'" class="twitter"><i class="icofont-linkedin"></i></a>':'' ?>
+
         </div>
     </div>
 </div>
@@ -587,9 +587,19 @@ $site = new Site();
                 <div class="col-lg-3 col-md-6 footer-contact">
                     <h3>BizLand<span>.</span></h3>
                     <p>
-                        A108 Adam Street <br> New York, NY 535022<br> United States <br><br>
-                        <strong>Phone:</strong> +1 5589 55488 55<br>
-                        <strong>Email:</strong> info@example.com<br>
+
+                        <?php
+
+                        $contact_address_array = explode(',' , $infos->contact_address());
+
+                        foreach($contact_address_array as $address){
+                            echo $address. ' , <br>';
+                        }
+
+                        ?>
+                        <br>
+                        <strong>Phone:</strong> <?= $infos->contact_no()?><br>
+                        <strong>Email:</strong> <?= $infos->contact_email()?><br>
                     </p>
                 </div>
 
@@ -619,11 +629,13 @@ $site = new Site();
                     <h4>Our Social Networks</h4>
                     <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
                     <div class="social-links mt-3">
-                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+
+                        <?= $infos->facebook() ? '<a href="'.$infos->facebook().'" class="twitter"><i class="icofont-facebook"></i></a>':'' ?>
+                        <?= $infos->twitter() ? '<a href="'.$infos->twitter().'" class="twitter"><i class="icofont-twitter"></i></a>':'' ?>
+                        <?= $infos->instagram() ? '<a href="'.$infos->instagram().'" class="twitter"><i class="icofont-instagram"></i></a>':'' ?>
+                        <?= $infos->linkedIn() ? '<a href="'.$infos->linkedIn().'" class="twitter"><i class="icofont-linkedin"></i></a>':'' ?>
+                        <?= $infos->skype() ? '<a href="'.$infos->skype().'" class="twitter"><i class="icofont-skype"></i></a>':'' ?>
+                        
                     </div>
                 </div>
 
