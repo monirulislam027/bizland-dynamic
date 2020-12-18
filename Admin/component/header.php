@@ -30,6 +30,7 @@ $auth_user = $auth->auth_user($id);
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>node_modules/admin-lte/plugins/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/dist/app.css">
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/resources/css/custom.css">
 </head>
@@ -324,7 +325,7 @@ $auth_user = $auth->auth_user($id);
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= $auth->adminBaseUrl?>team/team.php" class="nav-link">
+                        <a href="<?= $auth->adminBaseUrl?>team/team_member.php" class="nav-link">
                             <i class="nav-icon fab fa-teamspeak"></i>
                             <p>
                                 Team
@@ -332,15 +333,7 @@ $auth_user = $auth->auth_user($id);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="far fa-arrow-alt-circle-right nav-icon"></i>
-                            <p>
-                                Pricing
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="<?= $auth->adminBaseUrl ?>faqs/faqs.php" class="nav-link">
                             <i class="nav-icon far fa-question-circle"></i>
                             <p>
                                 FAQ's

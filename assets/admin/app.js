@@ -18,6 +18,9 @@ import "datatables.net-bs4"
 
 import 'bootstrap-toggle/js/bootstrap-toggle.min'
 
+import 'admin-lte/plugins/summernote/summernote-bs4'
+// import 'admin-lte/plugins/summernote/summernote-bs4.css'
+
 import 'admin-lte/dist/js/adminlte'
 import 'admin-lte/dist/js/demo'
 

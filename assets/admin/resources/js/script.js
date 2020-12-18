@@ -4,6 +4,9 @@ $(document).ready(function () {
         "autoWidth": false,
         "responsive": true,
     });
+    $('.summernote').summernote({
+        height: 300
+    })
     const baseURL = "http://bizland-dynamic.test/";
 
     $('#hero-form').on('submit', function (e) {

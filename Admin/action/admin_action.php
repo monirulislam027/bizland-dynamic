@@ -7,6 +7,7 @@ use App\Admin\Information;
 use App\Admin\Services;
 use App\Admin\Team;
 use App\Admin\Works;
+use App\Admin\FAQ;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
 header('content-type:application/json');
@@ -18,6 +19,8 @@ $client = new Client();
 $services = new Services();
 $works = new  Works();
 $team = new Team();
+$faqs = new  FAQ();
+
 
 $data = ['error' => false, 'rdr' => false];
 
@@ -1262,3 +1265,134 @@ if (isset($_POST['action']) && $_POST['action'] == 'team-member-update') {
 
 }
 
+if (isset($_POST['action']) && $_POST['action'] == 'faq-add') {
+
+    if (isset($_POST['question']) && $_POST['question'] && isset($_POST['answer']) && $_POST['answer']) {
+
+        $status = isset($_POST['status']) ? $_POST['status'] : 0;
+        $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+        $question = $_POST['question'];
+        $answer = $_POST['answer'];
+
+        $question_add = $faqs->create($question, $answer, $status, $auth_id);
+        if ($question_add) {
+            $data['message'] = 'Question added successfully!';
+            $data['rdr'] = true;
+            $data['rdr_url'] = 'faqs.php';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Failed! Try again!';
+        }
+
+    } else {
+
+        $data['error'] = true;
+
+        $question = $_POST['question'];
+        $answer = $_POST['answer'];
+
+        if ($question == '') {
+            $data['message'] = $client->field_error_message('question');
+        } else if ($answer == '') {
+            $data['message'] = $client->field_error_message('answer');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'faq-status') {
+
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+
+    $update_status = $faqs->status($status, $id);
+    if ($update_status) {
+        $data['message'] = 'Status updated successfully!';
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Something went wrong! Try again!';
+    }
+
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'faq-delete') {
+
+    $id = (int)$_POST['id'];
+
+    $question = $faqs->find($id);
+
+    if ($question->num_rows > 0) {
+
+        $question = $question->fetch_assoc();
+
+        if ($faqs->delete($id)) {
+            $data['message'] = 'Question deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Failed! Try Again';
+        }
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Team member not found!';
+    }
+    echo json_encode($data);
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'faq-update') {
+
+    if (isset($_POST['question']) && $_POST['question'] != '' && isset($_POST['answer']) && $_POST['answer'] != '' &&
+        isset($_POST['data']) && $_POST['data'] != '') {
+
+        $id = base64_decode($_POST['data']);
+
+        $question = $faqs->find($id);
+        if ($question->num_rows > 0) {
+
+            $status = isset($_POST['status']) ? $_POST['status'] : 0;
+            $auth_id = base64_decode($_SESSION['auth_user_id']);
+
+            $question = $_POST['question'];
+            $answer = $_POST['answer'];
+
+            $question_update = $faqs->update($question, $answer, $status, $auth_id, $id);
+            if ($question_update) {
+                $data['message'] = 'Question updated successfully!';
+                $data['rdr'] = true;
+                $data['rdr_url'] = 'faqs.php';
+            } else {
+                $data['error'] = true;
+                $data['message'] = 'Failed! Try again!';
+            }
+
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Item Not found!';
+        }
+
+    } else {
+
+        $data['error'] = true;
+
+        $question = $_POST['question'];
+        $answer = $_POST['answer'];
+
+        if ($question == '') {
+            $data['message'] = $client->field_error_message('question');
+        } else if ($answer == '') {
+            $data['message'] = $client->field_error_message('answer');
+        } else {
+            $data['message'] = 'Something went wrong!';
+        }
+
+    }
+
+    echo json_encode($data);
+}
