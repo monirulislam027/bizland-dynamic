@@ -6,7 +6,7 @@ $(document).ready(function () {
     });
     $('.summernote').summernote({
         height: 300
-    })
+    });
     const baseURL = "http://bizland-dynamic.test/";
 
     $('#hero-form').on('submit', function (e) {
@@ -127,7 +127,7 @@ $(document).ready(function () {
                         });
 
                     }
-                }else {
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Failed',
@@ -228,6 +228,29 @@ $(document).ready(function () {
         });
     })
 
+    $('body').on('change', '.info-data-update', function (event) {
+
+        let id = $(this).data('info-id');
+        let value = $(this).val();
+        let action = "info-data-update";
+
+        $.ajax({
+            url: baseURL + "admin/action/admin_action.php",
+            method: 'post',
+            data: {id, value, action},
+            success: function (response) {
+
+                if (response.error) {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: response.message
+                    });
+                }
+            }
+        });
+    })
 
 //    remove slider
     $('.remove_item').on('click', function () {

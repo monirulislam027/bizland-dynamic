@@ -1,19 +1,20 @@
 <?php
-session_start();
 
 use App\Admin\Ability;
 use App\Admin\Client;
-use App\Admin\Information;
+use App\Admin\FAQ;
 use App\Admin\Services;
 use App\Admin\Team;
 use App\Admin\Works;
-use App\Admin\FAQ;
+use App\Config\Information;
+
+session_start();
+
 
 require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
 header('content-type:application/json');
 
 $info = new Information();
-
 $ability = new Ability();
 $client = new Client();
 $services = new Services();
@@ -1265,6 +1266,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'team-member-update') {
 
 }
 
+
 if (isset($_POST['action']) && $_POST['action'] == 'faq-add') {
 
     if (isset($_POST['question']) && $_POST['question'] && isset($_POST['answer']) && $_POST['answer']) {
@@ -1395,4 +1397,62 @@ if (isset($_POST['action']) && $_POST['action'] == 'faq-update') {
     }
 
     echo json_encode($data);
+}
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'info-data-update') {
+
+    if (isset($_POST['id']) && $_POST['id'] != '' && isset($_POST['value']) && $_POST['value'] != '') {
+
+        $id = $_POST['id'];
+        $value = $_POST['value'];
+
+        $info_find = $info->find($id);
+        if ($info_find->num_rows > 0) {
+            $info_find = $info_find->fetch_assoc();
+
+            $info_update = $info->info_update($info_find['name'], $value);
+            if ($info_update) {
+                $data['message'] = 'Success!';
+            } else {
+                $data['error'] = true;
+                $data['message'] = 'Failed! Try again';
+            }
+
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Failed! Try again';
+        }
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Error!';
+    }
+
+
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'info-data-toggle') {
+
+    $value = $_POST['status'];
+    $id = $_POST['id'];
+
+    $info_find = $info->find($id);
+    if ($info_find->num_rows > 0) {
+        $info_find = $info_find->fetch_assoc();
+
+        $info_update = $info->info_update($info_find['name'], $value);
+        if ($info_update) {
+            $data['message'] = 'Success!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Failed! Try again';
+        }
+
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Failed! Try again';
+    }
+
+    echo json_encode($data);
+
 }

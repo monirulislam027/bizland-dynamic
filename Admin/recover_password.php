@@ -46,7 +46,7 @@ if (isset($_GET['email'])  && $_GET['email'] != '' && isset($_GET['token']) && $
     <link rel="stylesheet"
           href="<?= $config->baseUrl ?>assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/dist/admin.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -101,15 +101,7 @@ if (isset($_GET['email'])  && $_GET['email'] != '' && isset($_GET['token']) && $
 </div>
 <!-- /.login-box -->
 
-
-<!-- jQuery -->
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<?= $config->baseUrl ?>assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?= $config->baseUrl ?>assets/admin/js/adminlte.min.js"></script>
-
-<script src="<?= $config->baseUrl ?>assets/admin/js/auth.js"></script>
+<script src="<?= $config->baseUrl ?>assets/dist/admin.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,14 @@
+/*
+    <link href="assets/site/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/site/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="assets/site/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/site/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="assets/site/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="assets/site/vendor/aos/aos.css" rel="stylesheet">
+*/
+
+/*@import "./vendor/icofont/icofont.min.css";*/
+/*@import "./vendor/boxicons/css/boxicons.min.css";*/
+@import "./vendor/owl.carousel/assets/owl.carousel.min.css";
+@import "./vendor/venobox/venobox.css";
+@import "./vendor/aos/aos.css";

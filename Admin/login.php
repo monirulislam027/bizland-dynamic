@@ -22,7 +22,7 @@ $auth->is_logged_in() ? header('location:dashboard.php'):false;
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/dist/app.css">
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/dist/admin.css">
 
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -91,6 +91,6 @@ $auth->is_logged_in() ? header('location:dashboard.php'):false;
 
 
 <!-- custom javascript -->
-<script src="<?= $config->baseUrl ?>assets/admin/dist/app.js"></script>
+<script src="<?= $config->baseUrl ?>assets/dist/admin.js"></script>
 </body>
 </html>

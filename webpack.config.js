@@ -5,10 +5,10 @@ const webpack = require('webpack')
 module.exports = {
     mode: "development",
     entry:{
-        app:'./assets/admin/app.js',
+        admin:'./assets/admin/app.js',
     },
     output: {
-        path: path.resolve(__dirname, 'assets/admin/dist'),
+        path: path.resolve(__dirname, 'assets/dist'),
         filename: "[name].js"
     },
     module: {

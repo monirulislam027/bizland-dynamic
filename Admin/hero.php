@@ -1,6 +1,6 @@
 <?php
 
-use App\Admin\Information;
+use App\Config\Information;
 
 require_once 'component/header.php';
 

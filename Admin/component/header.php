@@ -1,13 +1,18 @@
 <?php
 
+
 use App\Config\Config;
 use App\Config\Auth;
+use App\Config\Information;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
 
 $config = new Config();
 
 $auth = new Auth();
+
+$information = new Information();
+
 
 $auth->is_logged_in() ? false : header('location:login.php');
 
@@ -31,7 +36,7 @@ $auth_user = $auth->auth_user($id);
 
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="<?= $config->baseUrl ?>node_modules/admin-lte/plugins/summernote/summernote-bs4.css">
-    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/dist/app.css">
+    <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/dist/admin.css">
     <link rel="stylesheet" href="<?= $config->baseUrl ?>assets/admin/resources/css/custom.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -45,10 +50,13 @@ $auth_user = $auth->auth_user($id);
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="<?= $config->baseUrl ?>assets/admin/index3.html" class="nav-link">Home</a>
+                <a href="<?= $config->baseUrl ?>" target="_blank" class="nav-link">Bizland</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="<?= $config->adminBaseUrl ?>customize/sections_headings.php" class="nav-link">Section's</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="<?= $config->adminBaseUrl ?>customize/customize.php" class="nav-link">Customize</a>
             </li>
         </ul>
 
@@ -76,7 +84,8 @@ $auth_user = $auth->auth_user($id);
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img  src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg" alt="User Avatar"
+                            <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg"
+                                 alt="User Avatar"
                                  class="img-size-50 mr-3 img-circle">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
@@ -93,7 +102,8 @@ $auth_user = $auth->auth_user($id);
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg" alt="User Avatar"
+                            <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg"
+                                 alt="User Avatar"
                                  class="img-size-50 img-circle mr-3">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
@@ -110,7 +120,8 @@ $auth_user = $auth->auth_user($id);
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg" alt="User Avatar"
+                            <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg"
+                                 alt="User Avatar"
                                  class="img-size-50 img-circle mr-3">
                             <div class="media-body">f
                                 <h3 class="dropdown-item-title">
@@ -310,13 +321,13 @@ $auth_user = $auth->auth_user($id);
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="<?=$auth->adminBaseUrl?>work/works_menu.php" class="nav-link">
+                                <a href="<?= $auth->adminBaseUrl ?>work/works_menu.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Menu</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?=$auth->adminBaseUrl?>work/works_items.php" class="nav-link">
+                                <a href="<?= $auth->adminBaseUrl ?>work/works_items.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Items</p>
                                 </a>
@@ -325,7 +336,7 @@ $auth_user = $auth->auth_user($id);
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= $auth->adminBaseUrl?>team/team_member.php" class="nav-link">
+                        <a href="<?= $auth->adminBaseUrl ?>team/team_member.php" class="nav-link">
                             <i class="nav-icon fab fa-teamspeak"></i>
                             <p>
                                 Team
@@ -351,13 +362,13 @@ $auth_user = $auth->auth_user($id);
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="<?= $auth->adminBaseUrl ?>contact/contact_info.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Info</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="<?= $auth->adminBaseUrl ?>contact/contact_options.php" class="nav-link">
                                     <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                                     <p>Options</p>
                                 </a>

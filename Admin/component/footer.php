@@ -22,7 +22,7 @@
 
 
 <!-- custom javascript -->
-<script src="<?= $config->baseUrl ?>assets/admin/dist/app.js" type="text/javascript"></script>
+<script src="<?= $config->baseUrl ?>assets/dist/admin.js" type="text/javascript"></script>
 <script src="<?= $config->baseUrl ?>assets/admin/resources/js/js.js"></script>
 
 </body>
