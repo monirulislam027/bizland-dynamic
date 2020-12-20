@@ -7,6 +7,7 @@ use App\Admin\Services;
 use App\Admin\Team;
 use App\Admin\Works;
 use App\Config\Information;
+use App\Admin\Messages;
 
 session_start();
 
@@ -21,6 +22,7 @@ $services = new Services();
 $works = new  Works();
 $team = new Team();
 $faqs = new  FAQ();
+$message = new Messages();
 
 
 $data = ['error' => false, 'rdr' => false];
@@ -1453,6 +1455,29 @@ if (isset($_POST['action']) && $_POST['action'] == 'info-data-toggle') {
         $data['message'] = 'Failed! Try again';
     }
 
+    echo json_encode($data);
+
+}
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'message-delete') {
+
+    $id = (int)$_POST['id'];
+
+    $message_array = $message->find($id);
+
+    if ($message_array->num_rows > 0) {
+
+        if ($message->delete($id)) {
+            $data['message'] = 'Message deleted successfully!';
+        } else {
+            $data['error'] = true;
+            $data['message'] = 'Failed! Try Again';
+        }
+    } else {
+        $data['error'] = true;
+        $data['message'] = 'Data not found!';
+    }
     echo json_encode($data);
 
 }

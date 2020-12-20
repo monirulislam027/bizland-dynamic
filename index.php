@@ -78,7 +78,7 @@ $site = new Site();
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li class="active"><a href="index.html">Home</a></li>
+                <li class="active"><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
@@ -94,7 +94,7 @@ $site = new Site();
 <!-- End Header -->
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center">
+<section id="hero" id="hero" class="d-flex align-items-center">
     <div class="container" data-aos="zoom-out" data-aos-delay="100">
         <h1><?= $infos->hero_title()['value'] ?> </h1>
         <h2><?= $infos->hero_sub_title()['value'] ?></h2>
@@ -149,7 +149,7 @@ $site = new Site();
 
                 <div class="section-title">
                     <h2>About</h2>
-                    <h3><?= $infos->about_title()['value']?></h3>
+                    <h3><?= $infos->about_title()['value'] ?></h3>
                     <p><?= $infos->about_subtitle()['value'] ?></p>
                 </div>
 
@@ -281,7 +281,7 @@ $site = new Site();
 
                 <div class="section-title">
                     <h2>Services</h2>
-                    <h3><?= $infos->service_title()['value']?></h3>
+                    <h3><?= $infos->service_title()['value'] ?></h3>
                     <p><?= $infos->service_subtitle()['value'] ?></p>
                 </div>
 
@@ -353,7 +353,7 @@ $site = new Site();
 
                 <div class="section-title">
                     <h2>Portfolio</h2>
-                    <h3><?= $infos->portfolio_title()['value']?></h3>
+                    <h3><?= $infos->portfolio_title()['value'] ?></h3>
                     <p><?= $infos->portfolio_subtitle()['value'] ?></p>
                 </div>
 
@@ -414,7 +414,7 @@ $site = new Site();
 
                 <div class="section-title">
                     <h2>Team</h2>
-                    <h3><?= $infos->team_title()['value']?></h3>
+                    <h3><?= $infos->team_title()['value'] ?></h3>
                     <p><?= $infos->team_subtitle()['value'] ?></p>
                 </div>
 
@@ -465,7 +465,7 @@ $site = new Site();
 
                 <div class="section-title">
                     <h2>F.A.Q</h2>
-                    <h3><?= $infos->faq_title()['value']?></h3>
+                    <h3><?= $infos->faq_title()['value'] ?></h3>
                     <p><?= $infos->faq_subtitle()['value'] ?></p>
                 </div>
 
@@ -507,10 +507,9 @@ $site = new Site();
 
                 <div class="section-title">
                     <h2>Contact</h2>
-                    <h3><?= $infos->contact_title()['value']?></h3>
+                    <h3><?= $infos->contact_title()['value'] ?></h3>
                     <p><?= $infos->contact_subtitle()['value'] ?></p>
                 </div>
-
 
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
                     <div class="col-lg-6">
@@ -540,51 +539,45 @@ $site = new Site();
                 </div>
 
                 <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
-                    <?php if ($infos->google_map()['value'] == 1){?>
-                    <div class="col-lg-6 ">
-                        <iframe class="mb-4 mb-lg-0"
-                                src="<?= $infos->map_link()['value'] ?>"
-                                frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
-                    </div>
+                    <?php if ($infos->google_map()['value'] == 1) { ?>
+                        <div class="col-lg-6 ">
+                            <iframe class="mb-4 mb-lg-0"
+                                    src="<?= $infos->map_link()['value'] ?>"
+                                    frameborder="0" style="border:0; width: 100%; height: 384px;"
+                                    allowfullscreen></iframe>
+                        </div>
                     <?php } ?>
-                    <?php if ($infos->contact_form()['value'] == 1){?>
-                    <div class="col-lg-6">
-                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                            <div class="form-row">
-                                <div class="col form-group">
-                                    <input type="text" name="name" class="form-control" id="name"
-                                           placeholder="Your Name"
-                                           data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
-                                    <div class="validate"></div>
+                    <?php if ($infos->contact_form()['value'] == 1) { ?>
+                        <div class="col-lg-6">
+                            <form method="post" id="contact-form" role="form" class="php-email-form">
+                                <div class="form-row">
+                                    <div class="col form-group">
+                                        <input type="text" name="name" class="form-control" id="name"
+                                               placeholder="Your Name"/>
+                                    </div>
+                                    <div class="col form-group">
+                                        <input type="email" class="form-control" name="email" id="email"
+                                               placeholder="Your Email"/>
+                                    </div>
                                 </div>
-                                <div class="col form-group">
-                                    <input type="email" class="form-control" name="email" id="email"
-                                           placeholder="Your Email" data-rule="email"
-                                           data-msg="Please enter a valid email"/>
-                                    <div class="validate"></div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="subject" id="subject"
+                                           placeholder="Subject"/>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="subject" id="subject"
-                                       placeholder="Subject"
-                                       data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
-                                <div class="validate"></div>
-                            </div>
-                            <div class="form-group">
-                            <textarea class="form-control" name="message" rows="5" data-rule="required"
-                                      data-msg="Please write something for us" placeholder="Message"></textarea>
-                                <div class="validate"></div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your message has been sent. Thank you!</div>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit">Send Message</button>
-                            </div>
-                        </form>
-                    </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="message" rows="5" id="message"
+                                              placeholder="Message"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="error-message"></div>
+                                    <div class="sent-message"></div>
+                                </div>
+                                <div class="text-center">
+                                    <button id="contact-form-btn"  type="submit">Send Message</button>
+                                </div>
+                            </form>
+                        </div>
                     <?php } ?>
                 </div>
 

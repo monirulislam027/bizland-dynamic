@@ -59,5 +59,9 @@ class Site extends Config
         return $this->connect->query("Select * From `faqs` where `status` = 1");
     }
 
+    public function contact_message($name, $email, $subject, $message)
+    {
+        return $this->connect->query("Insert into `messages` (`name` , `email` , `subject` , `message` ) VALUES ('$name', '$email', '$subject', '$message')");
+    }
 
 }

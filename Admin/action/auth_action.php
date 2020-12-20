@@ -8,6 +8,7 @@ header('content-type:application/json');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use App\Site\Site;
 
 // mailer classes end
 
@@ -17,6 +18,7 @@ $auth = new Auth();
 
 $mail = new PHPMailer(true);
 
+$site = new Site();
 
 $data = ['error' => false, 'rdr' => false];
 // register a account
@@ -281,5 +283,47 @@ if (isset($_POST['action']) && $_POST['action'] == 'recover-password') {
 }
 
 
+if (isset($_POST['action']) && $_POST['action'] == 'home-contact-messages') {
+    if (isset($_POST['name']) && $_POST['name'] && isset($_POST['subject']) && $_POST['subject'] &&
+        isset($_POST['email']) && $_POST['email'] && isset($_POST['message']) && $_POST['message']){
+
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $subject = $_POST['subject'];
+        $message = $_POST['message'];
+
+        $message = $site->contact_message($name , $email , $subject , $message);
+
+        if ($message){
+
+            $data['message'] = "Thank you for sending us message! We wil contact you soon!";
+
+        }else{
+            $data['error'] = true;
+            $data['message'] = 'Failed Try! Again!';
+        }
 
 
+    }else{
+        $data['error']= true ;
+
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $subject = $_POST['subject'];
+        $message = $_POST['message'];
+
+        if ($name != ''){
+            $data['message'] = 'Name field is required';
+        }else if($email != ''){
+            $data['message'] = 'Email field is required';
+        }else if($subject != ''){
+            $data['message'] = 'Subject field is required';
+        }else if($message != ''){
+            $data['message'] = 'Message field is required';
+        }else{
+            $data['message'] = 'Failed! Try again!';
+        }
+    }
+
+    echo  json_encode($data);
+}
