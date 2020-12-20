@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Admin\Messages;
 use App\Config\Config;
 use App\Config\Auth;
 use App\Config\Information;
@@ -19,7 +20,7 @@ $auth->is_logged_in() ? false : header('location:login.php');
 $id = base64_decode($_SESSION['auth_user_id']);
 
 $auth_user = $auth->auth_user($id);
-
+$message_obj = new Messages();
 ?>
 
 <!DOCTYPE html>
@@ -67,9 +68,11 @@ $auth_user = $auth->auth_user($id);
             <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" href="<?= $auth->adminBaseUrl ?>message.php">
-                    <i class="far fa-comments"></i>
+                    <i class="far fa-envelope"></i>
+                    <span class="badge badge-primary navbar-badge"><?= $message_obj->messages()->num_rows ?></span>
                 </a>
             </li>
+
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <img src="<?= $config->baseUrl ?>assets/admin/resources/image/user2-160x160.jpg"
