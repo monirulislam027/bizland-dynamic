@@ -2,7 +2,7 @@
 
 use App\Admin\Client;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php';
 
 $client = new Client();
 $testimonials = $client->all_testimonials();
@@ -71,7 +71,7 @@ $testimonials = $client->all_testimonials();
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 
 ?>
 he

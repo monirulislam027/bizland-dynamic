@@ -6,7 +6,7 @@ use App\Config\Config;
 use App\Config\Auth;
 use App\Config\Information;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'vendor/autoload.php';
 
 $config = new Config();
 

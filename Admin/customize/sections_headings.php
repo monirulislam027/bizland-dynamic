@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php';
 
 use App\Config\Information;
 
@@ -319,6 +319,6 @@ $info = new Information();
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 
 ?>

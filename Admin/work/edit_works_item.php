@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php';
 
 use App\Admin\Works;
 $works = new Works();
@@ -114,5 +114,5 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-work-item' && isset($_GET
 </div>
 
 
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php'; ?>
 

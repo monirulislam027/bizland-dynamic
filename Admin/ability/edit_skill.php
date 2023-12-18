@@ -2,7 +2,7 @@
 
 use App\Admin\Ability;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php';
 
 $ability = new Ability();
 
@@ -83,6 +83,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-skill' && isset($_GET['da
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 
 ?>

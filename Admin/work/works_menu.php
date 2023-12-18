@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php';
 
 use App\Admin\Works;
 
@@ -81,5 +81,5 @@ $work_menus = $works->all_work_menu();
 </div>
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 ?>

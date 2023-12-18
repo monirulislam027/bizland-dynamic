@@ -2,7 +2,7 @@
 
 use App\Admin\Services;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php';
 
 $services = new Services();
 $all_services = $services->all_service();
@@ -74,7 +74,7 @@ $all_services = $services->all_service();
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 
 ?>
 he

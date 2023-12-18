@@ -2,7 +2,7 @@
 
 use App\Admin\Client;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php';
 
 $client = new Client();
 $logos = $client->all_logo();
@@ -62,6 +62,6 @@ $logos = $client->all_logo();
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 
 ?>

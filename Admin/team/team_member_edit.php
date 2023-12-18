@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php' ;
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php' ;
 
 use App\Admin\Team;
 
@@ -152,5 +152,5 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-team-member' && isset($_G
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 ?>

@@ -34,6 +34,7 @@ $information = new Information();
                         <div class="form-group">
                             <label for="title">Hero Sub Title</label>
                             <textarea name="hero_sub_title" id="sub_title" class="form-control summernote" cols="30"  rows="3"><?= $information->hero_sub_title()['value'] ?></textarea>
+                            <textarea name="hero_sub_title" id="sub_title" class="form-control summernote" cols="30"  rows="3"><?= $information->hero_sub_title()['value'] ?></textarea>
                         </div>
 
                         <div class="card">

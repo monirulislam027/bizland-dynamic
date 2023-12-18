@@ -1,5 +1,5 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
+require $_SERVER['DOCUMENT_ROOT']. '/'  . 'vendor/autoload.php';
 
 use App\Config\Information as SiteInfo;
 use App\Site\Site;

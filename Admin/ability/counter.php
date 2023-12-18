@@ -2,7 +2,7 @@
 
 use App\Admin\Ability;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php';
 
 $ability = new Ability();
 $counters = $ability->all_counter();
@@ -68,6 +68,6 @@ $counters = $ability->all_counter();
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 
 ?>

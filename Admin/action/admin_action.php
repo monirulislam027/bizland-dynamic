@@ -12,7 +12,7 @@ use App\Admin\Messages;
 session_start();
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'vendor/autoload.php';
 header('content-type:application/json');
 
 $info = new Information();

@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php' ;
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php' ;
 
 use App\Admin\FAQ;
 
@@ -96,5 +96,5 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit-faq' && isset($_GET['data
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 ?>

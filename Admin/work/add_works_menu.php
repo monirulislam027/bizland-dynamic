@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/header.php' ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/header.php' ?>
 
 
 <div class="row justify-content-center">
@@ -58,5 +58,5 @@
 
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'admin/component/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/'  . 'admin/component/footer.php';
 ?>
